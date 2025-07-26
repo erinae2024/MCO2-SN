@@ -1,4 +1,5 @@
-#include "GraphApplication.h"
+//#include "GraphApplication.h"
+
 //Node Stuff;
 node* createNode(string name, string data){
 	
@@ -143,7 +144,7 @@ void displayGraphAsAdjacencyList(graph* g){
 	printf("\n");
 }
 
-int main(){
+/*int main(){
 	
 	graph* mainGraph = createGraph("DLSU Students", "124", "Cruz, Zach B.");
 	displayGraphAsAdjacencyList(mainGraph);
@@ -181,4 +182,4 @@ int main(){
 	//displayGraphAsAdjacencyList(mainGraph);
 	
 	
-}
+}*/

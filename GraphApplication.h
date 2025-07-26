@@ -9,6 +9,7 @@
 typedef char string[BUFFER];
 typedef struct nodeTag node;
 
+
 //Node stuff;
 struct nodeTag{
 	
@@ -19,6 +20,7 @@ struct nodeTag{
 	int edgeWeights[MAX_EDGES];  //array of edge weights
 	
 };
+
 
 node* createNode(string name, string data);
 void printNodeName(node* n);
