@@ -9,7 +9,6 @@
 typedef char string[BUFFER];
 typedef struct nodeTag node;
 
-
 //Node stuff;
 struct nodeTag{
 	
