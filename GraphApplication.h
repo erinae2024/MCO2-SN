@@ -37,7 +37,14 @@ struct graphTag{
 
 graph* createGraph(string graphName, string initName, string initData);
 void addNode(graph* g, string name, string data);
+void deleteNode(graph* g, int index);
 void addEdge(node* node1, node* node2, int weight);
 void editEdge(node* node1, node* node2, int weight);
+void deleteEdge(node* node1, node* node2);
+int getEdgeIndex(node* node1, node* node2);
 void displayGraphAsAdjacencyList(graph* g);
 void editNodeData(node* n, string newData);
+
+//Return index functions
+int returnNodeIdxName(graph*g, string key);
+int returnNodeIdxData(graph*g, string key);

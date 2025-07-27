@@ -33,36 +33,6 @@
 	return emptynode;
 }*/
 
-int returnNodeIdxName(graph*g, string key){
-	int i;
-	string nodeName;
-	for(i=0; i < g->nodeNum; i++){
-		
-		strcpy(nodeName, g->nodes[i]->name);
-		
-		if(strcmp(nodeName, key)==0)
-			return i;
-	}
-	
-	return -1;
-	
-}
-
-int returnNodeIdxData(graph*g, string key){
-	int i;
-	string nodeData;
-	for(i=0; i < g->nodeNum; i++){
-		
-		strcpy(nodeData, g->nodes[i]->data);
-		
-		if(strcmp(nodeData, key)==0)
-			return i;
-	}
-	
-	return -1;
-	
-}
-
 int returnNoRisk(node* n){
 	
 	int i;
