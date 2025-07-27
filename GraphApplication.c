@@ -12,9 +12,33 @@ node* createNode(string name, string data){
 
 }
 
-void deleteNode(int index){
+void deleteNode(graph* g, int index){
 	
+	int i;
 	
+	node* dNode = g->nodes[index];
+	
+	for(i = dNode->edgeNum - 1; i >= 0; i++){
+		
+		deleteEdge(dNode, dNode->edges[i]);
+		
+	}
+	
+	if(index == g->nodeNum - 1){
+		g->nodeNum -= 1;
+		free(dNode);
+	}else{
+		
+		for(i = index; i < g->nodeNum - 1; i++){
+			
+			g->nodes[i] = g->nodes[i+1];
+			
+		}
+		
+		g->nodeNum -= 1;
+		free(dNode);
+		
+	}
 	
 }
 
@@ -155,7 +179,7 @@ int getEdgeIndex(node* node1, node* node2){
 	int i;
 	
 	if(node1->edgeNum == 0 || node2->edgeNum == 0){
-		return -1
+		return -1;
 	}
 	
 	for(i = 0; i < node1->edgeNum && !done; i++){

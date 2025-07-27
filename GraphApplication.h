@@ -22,7 +22,6 @@ struct nodeTag{
 
 
 node* createNode(string name, string data);
-void deleteNode(int index);
 void printNodeName(node* n);
 void printNodeData(node* n);
 
@@ -38,6 +37,7 @@ struct graphTag{
 
 graph* createGraph(string graphName, string initName, string initData);
 void addNode(graph* g, string name, string data);
+void deleteNode(graph* g, int index);
 void addEdge(node* node1, node* node2, int weight);
 void editEdge(node* node1, node* node2, int weight);
 void deleteEdge(node* node1, node* node2);
