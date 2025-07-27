@@ -1,4 +1,4 @@
-//#include "GraphApplication.h"
+#include "GraphApplication.h"
 
 //Node Stuff;
 node* createNode(string name, string data){
@@ -10,6 +10,12 @@ node* createNode(string name, string data){
 
 	return newNode;
 
+}
+
+void deleteNode(int index){
+	
+	
+	
 }
 
 void printNodeName(node* n){
@@ -80,8 +86,57 @@ void editEdge(node* node1, node* node2, int weight){
 	
 	if(!full){
 		
-		node1->edgeWeights[node1->edgeNum-1] = weight;
-		node2->edgeWeights[node2->edgeNum-1] = weight;
+		int node1Edge = getEdgeIndex(node1, node2);
+		int node2Edge = getEdgeIndex(node2, node1);
+		
+		node1->edgeWeights[node1Edge] = weight;
+		node2->edgeWeights[node2Edge] = weight;
+		
+	}
+	
+}
+
+void deleteEdge(node* node1, node* node2){
+	
+	int empty = 0;
+	int i;
+	
+	if(node1->edgeNum == 0 || node2->edgeNum == 0){
+		empty = 1;
+	}
+	
+	if(!empty){
+		
+		int node1Edge = getEdgeIndex(node1, node2);
+		int node2Edge = getEdgeIndex(node2, node1);
+		
+		if(node1Edge == node1->edgeNum - 1){
+			node1->edgeNum -= 1;
+		}else{
+			
+			for(i = node1Edge; i < node1->edgeNum - 1; i++){
+				
+				node1->edges[i] = node1->edges[i+1];
+				
+			}
+			
+			node1->edgeNum -= 1;
+			
+		}
+		
+		if(node2Edge == node2->edgeNum - 1){
+			node2->edgeNum -= 1;
+		}else{
+			
+			for(i = node2Edge; i < node2->edgeNum - 1; i++){
+				
+				node2->edges[i] = node2->edges[i+1];
+				
+			}
+			
+			node2->edgeNum -= 1;
+			
+		}
 		
 	}
 	
@@ -90,6 +145,30 @@ void editEdge(node* node1, node* node2, int weight){
 void editNodeData(node* n, string newData){
 	
 	strcpy(n->data, newData);
+	
+}
+
+int getEdgeIndex(node* node1, node* node2){
+	
+	int index;
+	int done = 0;
+	int i;
+	
+	if(node1->edgeNum == 0 || node2->edgeNum == 0){
+		return -1
+	}
+	
+	for(i = 0; i < node1->edgeNum && !done; i++){
+		
+		if(node1->edges[i] == node2){
+			index = i;
+			done = 1;
+		}
+		
+	}
+	
+	return index;
+	
 }
 
 void displayGraphAsAdjacencyList(graph* g){
