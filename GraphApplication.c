@@ -16,7 +16,7 @@ void deleteNode(graph* g, int index){
 	
 	node* dNode = g->nodes[index];
 	
-	for(i = dNode->edgeNum - 1; i >= 0; i++){
+	for(i = dNode->edgeNum - 1; i >= 0; i--){
 		
 		deleteEdge(dNode, dNode->edges[i]);
 		
@@ -65,6 +65,8 @@ graph* createGraph(string graphName, string initName, string initData){
 	newGraph->nodes[0] = createNode(initName, initData);
 	newGraph->rootNode = newGraph->nodes[0];
 	newGraph->nodeNum = 1;
+	
+	return newGraph;
 	
 }
 
@@ -282,7 +284,7 @@ int returnNodeIdxData(graph*g, string key){
 }
 
 
-/*int main(){
+int main(){
 	
 	graph* mainGraph = createGraph("DLSU Students", "124", "Cruz, Zach B.");
 	
@@ -324,11 +326,19 @@ int returnNodeIdxData(graph*g, string key){
 	
 	displayGraphAsAdjacencyList(mainGraph);
 	
-//	deleteNode(mainGraph, 0);
-//	deleteNode(mainGraph, 1); cant delete
-//	deleteNode(mainGraph, 2); cant delete
-//	deleteNode(mainGraph, 3);
-//	deleteNode(mainGraph, 4);
-//	deleteNode(mainGraph, 5);
-	displayGraphAsAdjacencyList(mainGraph);	
-}*/
+	deleteNode(mainGraph, 0);
+	displayGraphAsAdjacencyList(mainGraph);
+	deleteNode(mainGraph, 1); 
+	displayGraphAsAdjacencyList(mainGraph);
+	deleteNode(mainGraph, 1); 
+	displayGraphAsAdjacencyList(mainGraph);
+	deleteNode(mainGraph, 0);
+	displayGraphAsAdjacencyList(mainGraph);
+	deleteNode(mainGraph, 0);
+	displayGraphAsAdjacencyList(mainGraph);
+	deleteNode(mainGraph, 0);
+	displayGraphAsAdjacencyList(mainGraph);
+	deleteNode(mainGraph, 0);
+	
+	//displayGraphAsAdjacencyList(mainGraph);
+}
