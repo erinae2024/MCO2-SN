@@ -1,5 +1,3 @@
-#include "GraphApplication.h"
-
 //Node Stuff;
 node* createNode(string name, string data){
 	
@@ -164,6 +162,11 @@ void deleteEdge(node* node1, node* node2){
 		
 	}
 	
+}
+
+void editNodeName(node* n, string newName){
+	
+	strcpy(n->name, newName);
 }
 
 void editNodeData(node* n, string newData){

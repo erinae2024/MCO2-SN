@@ -43,6 +43,7 @@ void editEdge(node* node1, node* node2, int weight);
 void deleteEdge(node* node1, node* node2);
 int getEdgeIndex(node* node1, node* node2);
 void displayGraphAsAdjacencyList(graph* g);
+void editNodeName(node* n, string newName);
 void editNodeData(node* n, string newData);
 
 //Return index functions

@@ -1,37 +1,8 @@
 #include "QueueForGraph.c"
 
-//
-/*node* findNodeName(graph*g, string key){
-	int i;
-	string nodeName;
-	for(i=0; i < g->nodeNum; i++){
-		
-		strcpy(nodeName, g->nodes[i]->name);
-		
-		if(strcmp(nodeName, key)==0)
-			return g->nodes[i];
-	}
-	
-	node* emptynode;
-	emptynode = createNode(" ", " ");
-	return emptynode;
-}*/
-
-/*node* findNodeData(graph*g, string key){
-	int i;
-	string nodeData;
-	for(i=0; i < g->nodeNum; i++){
-		
-		strcpy(nodeData, g->nodes[i]->data);
-		
-		if(strcmp(nodeData, key)==0)
-			return g->nodes[i];
-	}
-	
-	node* emptynode;
-	emptynode = createNode(" ", " ");
-	return emptynode;
-}*/
+int returnNoRisk(node* n);
+void printAdjacentNodes(node* n); //to be used to show students who have been in contact with specified infected student
+void printRiskStudent(graph* g, string key);
 
 int returnNoRisk(node* n){
 	
@@ -44,7 +15,7 @@ int returnNoRisk(node* n){
 	return 1;
 }
 
-void printAdjacentNodes(node* n){ //to be used to show students who have been in contact with specified infected student
+void printAdjacentNodes(node* n){ 
 	
 	int i;
 	int alone = 0;
@@ -157,7 +128,7 @@ void printRiskStudent(graph* g, string key) {
 
 
 
-int main(){
+/*int main(){
 	
 	graph* mainGraph = createGraph("DLSU Students", "124", "Cruz, Zach B.");
 	addNode(mainGraph, "121", "Santos, Erin D.");
@@ -180,7 +151,7 @@ int main(){
 	//displayGraphAsAdjacencyList(mainGraph);
 
 	
-	/*queue* mainq;
+	queue* mainq;
 	mainq = CreateQueue(mainGraph->nodeNum);
 	Enqueue(mainq, mainGraph->nodes[3]);
 	Enqueue(mainq, mainGraph->nodes[4]);
@@ -188,15 +159,15 @@ int main(){
 	Enqueue(mainq, mainGraph->nodes[2]);
 	DisplayQueue(mainq);
 	Dequeue(mainq);
-	DisplayQueue(mainq);*/
+	DisplayQueue(mainq);
 	
 	
-/*	printRiskStudent(mainGraph, "Cruz, Zach B.");
+	printRiskStudent(mainGraph, "Cruz, Zach B.");
 	printRiskStudent(mainGraph, "Santos, Erin D.");
-	printRiskStudent(mainGraph, "De Leon, Alaine A.");*/
+	printRiskStudent(mainGraph, "De Leon, Alaine A.");
 	printRiskStudent(mainGraph, "Ness");
 //	printRiskStudent(mainGraph, "Papyrus");
 //	printRiskStudent(mainGraph, "Bang Chan");
 
 	
-}
+}*/
