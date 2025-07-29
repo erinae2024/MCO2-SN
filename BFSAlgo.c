@@ -118,7 +118,11 @@ void printRiskStudent(graph* g, string key) {
 		        printf("\n");
 	   		}
 	    }
+	    
+		printf("\n");
+	    
     }
+    
     else
     	printf("Error 404: Student Not Found");
 }

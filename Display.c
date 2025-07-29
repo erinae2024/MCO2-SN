@@ -321,5 +321,18 @@ void displayEdgeFunc(int* page, graph* g){
 	
 }
 
-
+int confirmExit(int *page){
+	
+	system("cls");
+	printf("Are you sure you want to exit the program?\n[1] Yes\n[2] No\n\n");
+	
+	int choice = getInput(1,2);
+	
+	if(choice == 1){
+		return 0;
+	}else{
+		*page = 0;
+		return 1;
+	}
+}
 
