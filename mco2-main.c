@@ -1,29 +1,38 @@
 #include"Display.c"
 
 /////////////////////////////
-int quit = 0;
-int page;
 
-/*int main(){
+int main(){
+	
+	/*int on = 1;
+	int choice;
+	int page = 0;
+	
+	*graph main = createGraph(main, "Student Name", "ID Number");
+	addNode(mainGraph, "121", "Santos, Erin D.");
+	addEdge(main->nodes[0], mainGraph->nodes[1], 120);
+	
+	addNode(main, "123", "De Leon, Alaine A.");
+	addEdge(main->nodes[0], main->nodes[2], 50);
+	addEdge(main->nodes[1], main->nodes[2], 88);
+	
+	addNode(main, "001", "Sans");
+	addNode(main, "002", "Papyrus");
+	addEdge(main->nodes[2], main->nodes[3], 999);
+	addEdge(main->nodes[2], main->nodes[4], 20);
+	//displayGraphAsAdjacencyList(mainGraph);
+	
+	editNodeData(mainGraph->nodes[3], "Ness");
+	addNode(mainGraph, "197", "Bang Chan");
+	addEdge(mainGraph->nodes[3], mainGraph->nodes[5], 60);
 	
 	system("cls");
 	
 	while(!quit){
-	//determine high risk students
-	//import/export new graph
-	//add node
-	//edit node
-	//delete node
-	//add edge
-	//delete edge
-	//quit
 	
-		printf("Contact Tracing Program\n\n");
-		printf("[1] Determine Possibly Infected Students\n[2] Import/Export Graph\n[3]Add node\n[4] Edit node\n[5] Delete node\n[6] Add edge\n[7]Delete edge\n[8] Quit Program\n");
-		
-		printf("\nEnter number of choice: ");
-		scanf("%d", choice);
 	
-	}
-}*/
+	}*/
+	
+	printf("ALL GOODS");
+}
 

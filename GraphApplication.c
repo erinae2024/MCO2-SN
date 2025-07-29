@@ -284,7 +284,7 @@ int returnNodeIdxData(graph*g, string key){
 }
 
 
-int main(){
+/*int main(){
 	
 	graph* mainGraph = createGraph("DLSU Students", "124", "Cruz, Zach B.");
 	
@@ -341,4 +341,4 @@ int main(){
 	deleteNode(mainGraph, 0);
 	
 	//displayGraphAsAdjacencyList(mainGraph);
-}
+}*/

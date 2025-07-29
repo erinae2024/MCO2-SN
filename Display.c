@@ -64,10 +64,10 @@ void displayMenu(int *page){ //0
 	
 	printf("Contact Tracing Program\n\n");
 	
-	string options[6] = {"Determine Possibly Infected Students", "Import/Export Graph", "Add/Edit/Delete Node", "Add/Delete Edge", "Edit Edge Weight", "Quit"};
+	string options[5] = {"Determine Possibly Infected Students", "Import/Export Graph", "Add/Edit/Delete Node", "Add/Edit/Delete Edge", "Quit"};
 	
-	printOptions(6, options, 1);
-	*page = getInput(1,6);
+	printOptions(5, options, 1);
+	*page = getInput(1,5);
 	
 }
 
@@ -101,16 +101,19 @@ void displayNodeFunc(int* page, graph* g){ //3
 	string name;
 	string data;
 	string newName;
+	int nodeIdx;
+
+
 
 		while(on){
 		
 		system("cls");
 		
-		switch(subPage){
+		switch(subpage){
 			
 			case 0: printf("Add/Edit/Delete Node Menu\n\n");
-					string options[3] = {"Add Node", "Edit Node Data", "Delete Node", "Back to Main Menu"};
-					printOptions(4, options, 1);
+					string options0[4] = {"Add Node", "Edit Node Data", "Delete Node", "Back to Main Menu"};
+					printOptions(4, options0, 1);
 					scanf("%d", choice);
 					choice = getInput(1, 4);
 					if(choice == 4)
@@ -130,7 +133,8 @@ void displayNodeFunc(int* page, graph* g){ //3
 					break;
 			
 			case 2: printf("Edit Node Menu\n\n");
-					string options[2] = {"Edit Node Name", "Edit Node Data"};
+					string options2[2] = {"Edit Node Name", "Edit Node Data"};
+					printOptions(2, options2, 1);
 					choice = getInput(1,2);
 					
 					if(choice == 1){
@@ -139,7 +143,7 @@ void displayNodeFunc(int* page, graph* g){ //3
 						nodeIdx = returnNodeIdxName(g, name);
 						printf("\nEnter new name of student: ");
 						scanf("%s", newName);
-						editNodeName(g->[nodeIdx], newName);
+						editNodeName(g->nodes[nodeIdx], newName);
 						subpage = 0;
 					}
 					
@@ -149,7 +153,7 @@ void displayNodeFunc(int* page, graph* g){ //3
 						nodeIdx = returnNodeIdxData(g, data);
 						printf("\nEnter ID number of student: ");
 						scanf("%s", newName);
-						editNodeData(g->[nodeIdx], newName);
+						editNodeData(g->nodes[nodeIdx], newName);
 						subpage = 0;						
 					}
 					break;
@@ -158,15 +162,15 @@ void displayNodeFunc(int* page, graph* g){ //3
 					
 			case 3: printf("Delete Node Menu\n\n");
 					printf("Choose input type:\n");
-					string options[2] = {"Student Name", "Student ID Number"};
-					printOptions(2, options, 1);
+					string options3[2] = {"Student Name", "Student ID Number"};
+					printOptions(2, options3, 1);
 					choice = getInput(1,2);
 					
 					if(choice == 1){
 						printf("Enter name of student: ");
 						scanf("%s", name);
 						nodeIdx = returnNodeIdxName(g, name);
-						deleteNode(g->[nodeIdx], newName);
+						deleteNode(g, nodeIdx);
 						subpage = 0;
 					}
 					
@@ -174,7 +178,7 @@ void displayNodeFunc(int* page, graph* g){ //3
 						printf("Enter the ID number of student: ");
 						scanf("%s", data);
 						nodeIdx = returnNodeIdxData(g, data);
-						deleteNode(g->[nodeIdx], newName);
+						deleteNode(g, nodeIdx);
 						subpage = 0;						
 					}
 					break;
@@ -193,21 +197,22 @@ void displayEdgeFunc(int* page, graph* g){
 	int nodeIdx2;
 	int weight;
 	
+	string options;
+	
 	int on = 1;
 	int subpage = 0;
-	int choice;
 	
-			while(on){
+		while(on){
 		
 		system("cls");
 		
-		switch(subPage){
+		switch(subpage){
 			
-			case 0: printf("Add/Delete Edge Menu\n\n");
-					string options[3] = {"Add Edge", "Delete Edge", "Back to Main Menu"};
-					printOptions(3, options, 1);
+			case 0: printf("Add/Edit/Delete Edge Menu\n\n");
+					string options0[4] = {"Add Edge", "Delete Edge", "Edit Edge Weight", "Back to Main Menu"};
+					printOptions(4, options0, 1);
 					scanf("%d", choice);
-					choice = getInput(1, 3);
+					choice = getInput(1, 4);
 					if(choice == 3)
 						*page = 0;
 					else
@@ -217,8 +222,8 @@ void displayEdgeFunc(int* page, graph* g){
 					
 			case 1: printf("Add Edge Menu\n\n");
 			        printf("Choose input type:\n");
-					string options[2] = {"Student Names", "Student ID Numbers"};
-					printOptions(2, options, 1);
+					string options1[2] = {"Student Names", "Student ID Numbers"};
+					printOptions(2, options1, 1);
 					choice = getInput(1,2);
 					
 					if(choice == 1){
@@ -228,9 +233,9 @@ void displayEdgeFunc(int* page, graph* g){
 						printf("\nEnter name of second student: ");
 						scanf("%s", node2);
 						nodeIdx2 = returnNodeIdxName(g, node2);
-						print("Enter time both students have been in contact (in minutes): ");
+						printf("Enter time both students have been in contact (in minutes): ");
 						scanf("%d", weight);
-						addEdge(g->[nodeIdx1], g->[nodeIdx2], weight);
+						addEdge(g->nodes[nodeIdx1], g->nodes[nodeIdx2], weight);
 						subpage = 0;
 					}
 					
@@ -241,17 +246,17 @@ void displayEdgeFunc(int* page, graph* g){
 						printf("\nEnter ID number of second student: ");
 						scanf("%s", node2);
 						nodeIdx2 = returnNodeIdxData(g, node2);
-						print("Enter time both students have been in contact (in minutes): ");
+						printf("Enter time both students have been in contact (in minutes): ");
 						scanf("%d", weight);
-						addEdge(g->[nodeIdx1], g->[nodeIdx2], weight);
+						addEdge(g->nodes[nodeIdx1], g->nodes[nodeIdx2], weight);
 						subpage = 0;
 					}
 					break;
 			
 			case 2: printf("Delete Edge Menu\n\n");
 			        printf("Choose input type:\n");
-					string options[2] = {"Student Names", "Student ID Numbers"};
-					printOptions(2, options, 1);
+					string options2[2] = {"Student Names", "Student ID Numbers"};
+					printOptions(2, options2, 1);
 					choice = getInput(1,2);
 					
 					if(choice == 1){
@@ -261,7 +266,7 @@ void displayEdgeFunc(int* page, graph* g){
 						printf("\nEnter name of second student: ");
 						scanf("%s", node2);
 						nodeIdx2 = returnNodeIdxName(g, node2);
-						deleteEdge(g->[nodeIdx1], g->[nodeIdx2]);
+						deleteEdge(g->nodes[nodeIdx1], g->nodes[nodeIdx2]);
 						subpage = 0;
 					}
 					
@@ -272,10 +277,43 @@ void displayEdgeFunc(int* page, graph* g){
 						printf("\nEnter ID number of second student: ");
 						scanf("%s", node2);
 						nodeIdx2 = returnNodeIdxData(g, node2);
-						deleteEdge(g->[nodeIdx1], g->[nodeIdx2]);
+						deleteEdge(g->nodes[nodeIdx1], g->nodes[nodeIdx2]);
 						subpage = 0;
 					}
 					break;	
+			
+			case 3: printf("Edit Edge Weight Menu\n\n");
+			        printf("Choose input type:\n");
+					string options3[2] = {"Student Names", "Student ID Numbers"};
+					printOptions(2, options3, 1);
+					choice = getInput(1,2);
+					
+					if(choice == 1){
+						printf("Enter name of first student: ");
+						scanf("%s", node1);
+						nodeIdx1 = returnNodeIdxName(g, node1);
+						printf("\nEnter name of second student: ");
+						scanf("%s", node2);
+						nodeIdx2 = returnNodeIdxName(g, node2);
+						printf("Enter new time both students have been in contact (in minutes): ");
+						scanf("%d", weight);
+						editEdge(g->nodes[nodeIdx1], g->nodes[nodeIdx2], weight);
+						subpage = 0;
+					}
+					
+					else if(choice == 2){
+						printf("Enter ID number of first student: ");
+						scanf("%s", node1);
+						nodeIdx1 = returnNodeIdxData(g, node1);
+						printf("\nEnter ID number of second student: ");
+						scanf("%s", node2);
+						nodeIdx2 = returnNodeIdxData(g, node2);
+						printf("Enter new time both students have been in contact (in minutes): ");
+						scanf("%d", weight);
+						editEdge(g->nodes[nodeIdx1], g->nodes[nodeIdx2], weight);
+						subpage = 0;
+					}
+					break;
 
 		}
 		
@@ -283,7 +321,5 @@ void displayEdgeFunc(int* page, graph* g){
 	
 }
 
-void displayEditWeight(int* page, graph* g){
-	
-	//base it on displayDetermine
-}
+
+
