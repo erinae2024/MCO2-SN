@@ -40,6 +40,9 @@ void addNode(graph* g, string name, string data);
 void deleteNode(graph* g, int index);
 void addEdge(node* node1, node* node2, int weight);
 void editEdge(node* node1, node* node2, int weight);
+
+int edgeExistData(node* node1, node* node2);
+
 void deleteEdge(node* node1, node* node2);
 int getEdgeIndex(node* node1, node* node2);
 void displayGraphAsAdjacencyList(graph* g);

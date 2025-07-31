@@ -78,7 +78,7 @@ void addNode(graph* g, string name, string data){
 }
 
 
-void addEdge(node* node1, node* node2, int weight){
+void addEdge(node* node1, node* node2, int weight){ //fix
 	
 	int full = 0;
 	
@@ -100,20 +100,33 @@ void addEdge(node* node1, node* node2, int weight){
 	
 }
 
-int editEdge(node* node1, node* node2, int weight){
+void editEdge(node* node1, node* node2, int weight){ //fix
 	
-	int full = 0;
-	int exist = 0;
-	
-	if(!full){
-		
+		node1->edgeWeights[node1->edgeNum-1] = weight;
+		node2->edgeWeights[node2->edgeNum-1] = weight;
 		int node1Edge = getEdgeIndex(node1, node2);
 		int node2Edge = getEdgeIndex(node2, node1);
 		
 		node1->edgeWeights[node1Edge] = weight;
 		node2->edgeWeights[node2Edge] = weight;
+
+}
+
+int edgeExistData(node* node1, node* node2){
+	
+	int i;
+	int exist = 0;
+	string edgeData;
+	
+	for(i=0; i<node1->edgeNum; i++)
+	{
+		strcpy(edgeData, node1->edges[i]->data);
 		
+		if(strcmp(edgeData, node2->data) == 0)
+			exist = 1;
 	}
+	
+	return exist;
 	
 }
 
@@ -174,7 +187,7 @@ void editNodeData(node* n, string newData){
 	
 }
 
-int getEdgeIndex(node* node1, node* node2){
+int getEdgeIndex(node* node1, node* node2){ 
 	
 	int index;
 	int done = 0;
@@ -260,7 +273,7 @@ int returnNodeIdxName(graph*g, string key){
 		if(strcmp(nodeName, key)==0)
 			return i;
 	}
-	
+		
 	return -1;
 	
 }

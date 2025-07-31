@@ -24,7 +24,13 @@ int main(){
 	addNode(mainGraph, "Bang Chan", "197");
 	addEdge(mainGraph->nodes[3], mainGraph->nodes[5], 60);
 	
+	/*string name;
 	
+	printf("Enter student's name: ");
+	scanf(" %[^\n]", name);
+	
+	printf("You entered: %s\n", name);
+	printf("%d", returnNodeIdxName(mainGraph, name)); */
 	
 	while(on){
 		
