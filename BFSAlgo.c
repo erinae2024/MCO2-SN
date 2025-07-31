@@ -54,77 +54,88 @@ void printAdjacentNodes(node* n){
 
 void printRiskStudent(graph* g, string key) {
 	
+	int studentFound = 1;
     int rootNodeIdx = returnNodeIdxData(g, key);
     
-    printAdjacentNodes(g->nodes[rootNodeIdx]);
+    if(rootNodeIdx == -1){
+    	printf("Error! No student with this name found in graph!\n\n");
+    	studentFound = 0;
+	}
     
-    printf("----------------");
-    printf("\nList of Possibly Infected Students:\n\n");
+    if(studentFound){
+    	
+    	printAdjacentNodes(g->nodes[rootNodeIdx]);
     
-   	queue* q = CreateQueue(g->nodeNum);
-    node* result[g->nodeNum];
-	int resultIdx = 0;
-	int visited[g->nodeNum];
-	node* adjNode;
-	int adjIdx;
+    	printf("----------------");
+    	printf("\nList of Possibly Infected Students:\n\n");
     
-    if(rootNodeIdx != 1) {
-	    
-	    //Initialize array to be filled with 0
-	    for(int i = 0; i < g->nodeNum; i++) {
-	    	visited[i] = 0;
-    	}
-
-	    node* rootNode = g->nodes[rootNodeIdx];
-	    Enqueue(q, rootNode);
-	    visited[rootNodeIdx] = 1;
-
-	   	
-	   	if(returnNoRisk(rootNode) == 1)
-	   		printf("Infected student has not been in contact with another student for over 30 minutes.\n\n");
-	   	else{
+   		queue* q = CreateQueue(g->nodeNum);
+    	node* result[g->nodeNum];
+		int resultIdx = 0;
+		int visited[g->nodeNum];
+		node* adjNode;
+		int adjIdx;
+    	
+    	if(rootNodeIdx != 1) {
+		    
+		    //Initialize array to be filled with 0
+		    for(int i = 0; i < g->nodeNum; i++) {
+		    	visited[i] = 0;
+    		}
+		
+		    node* rootNode = g->nodes[rootNodeIdx];
+		    Enqueue(q, rootNode);
+	    	visited[rootNodeIdx] = 1;
+			
 	   		
-	   		while(QueueEmpty(q) != 1) {
-	    	
-	        node* currentNode = Dequeue(q);
-	        
-	        //only put non-root nodes into the result
-		        if(currentNode != rootNode) {
-		            result[resultIdx] = currentNode;
-		            resultIdx++;
+	   		if(returnNoRisk(rootNode) == 1)
+	   			printf("Infected student has not been in contact with another student for over 30 minutes.\n\n");
+	   		else{
+	   			
+	   			while(QueueEmpty(q) != 1) {
+	    		
+	    	    node* currentNode = Dequeue(q);
+	    	    
+	    	    //only put non-root nodes into the result
+			        if(currentNode != rootNode) {
+			            result[resultIdx] = currentNode;
+			            resultIdx++;
+			            
+			        }
+						
+					for(int i = 0; i < currentNode->edgeNum; i++) {
+			        	
+		        		adjNode = currentNode->edges[i];
+		    	        adjIdx = returnNodeIdxData(g, adjNode->data); // You'll need this function
 		            
-		        }
-					
-				for(int i = 0; i < currentNode->edgeNum; i++) {
-		        	
-		        	adjNode = currentNode->edges[i];
-		            adjIdx = returnNodeIdxData(g, adjNode->data); // You'll need this function
-		            
-		            if(adjIdx != -1 && !visited[adjIdx] && currentNode->edgeWeights[i] > 30) {
-		                visited[adjIdx] = 1;
-		                Enqueue(q, adjNode);
-		           	}
-		        }	
-			}	
-
-
-	        for(int i = 0; i < resultIdx; i++) {
-		        node* displayNode = result[i];
-		        printf("%d. ", i+1);
-		        printNodeName(displayNode);
-		        printf(":[");
-		        printNodeData(displayNode);
-		        printf("]");
-		        printf("\n");
-	   		}
-	    }
+		        	    if(adjIdx != -1 && !visited[adjIdx] && currentNode->edgeWeights[i] > 30) {
+		    	            visited[adjIdx] = 1;
+		    	            Enqueue(q, adjNode);
+		    	       	}
+		    	    }	
+				}	
+			
+			
+	        	for(int i = 0; i < resultIdx; i++) {
+		    	    node* displayNode = result[i];
+		    	    printf("%d. ", i+1);
+		    	    printNodeName(displayNode);
+		    	    printf(":[");
+		    	    printNodeData(displayNode);
+		    	    printf("]");
+		    	    printf("\n");
+	   			}
+	    	}
 	    
-		printf("\n");
+			printf("\n");
 	    
-    }
+    	}
     
-    else
-    	printf("Error 404: Student Not Found");
+    	else
+    		printf("Error 404: Student Not Found");
+    		
+	}
+    
 }
 
 

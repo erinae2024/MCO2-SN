@@ -7,21 +7,21 @@ int main(){
 	int page = 0;
 	
 	graph* mainGraph = createGraph("DLSU Students", "Student Name", "ID Number");
-	addNode(mainGraph, "121", "Santos, Erin D.");
+	addNode(mainGraph, "Santos, Erin D.", "121");
 	addEdge(mainGraph->nodes[0], mainGraph->nodes[1], 120);
 	
-	addNode(mainGraph, "123", "De Leon, Alaine A.");
+	addNode(mainGraph, "De Leon, Alaine A.", "123");
 	addEdge(mainGraph->nodes[0], mainGraph->nodes[2], 50);
 	addEdge(mainGraph->nodes[1], mainGraph->nodes[2], 88);
 	
-	addNode(mainGraph, "001", "Sans");
-	addNode(mainGraph, "002", "Papyrus");
+	addNode(mainGraph, "Sans", "001");
+	addNode(mainGraph, "Papyrus", "002");
 	addEdge(mainGraph->nodes[2], mainGraph->nodes[3], 999);
 	addEdge(mainGraph->nodes[2], mainGraph->nodes[4], 20);
 	//displayGraphAsAdjacencyList(mainGraph);
 	
-	editNodeData(mainGraph->nodes[3], "Ness");
-	addNode(mainGraph, "197", "Bang Chan");
+	editNodeName(mainGraph->nodes[3], "Ness");
+	addNode(mainGraph, "Bang Chan", "197");
 	addEdge(mainGraph->nodes[3], mainGraph->nodes[5], 60);
 	
 	
@@ -35,10 +35,10 @@ int main(){
 			switch(page){
 			
 			case 0: displayMenu(&page); break;
-			case 1: displayDetermine(&page, mainGraph);
+			case 1: displayDetermine(&page, mainGraph); break;
 			case 2: printf("FUNCTION IN PROGRESS"); break;
-			case 3: displayNodeFunc(&page, mainGraph);
-			case 4: displayEdgeFunc(&page, mainGraph);
+			case 3: displayNodeFunc(&page, mainGraph); break;
+			case 4: displayEdgeFunc(&page, mainGraph); break;
 			case 5: on = confirmExit(&page); break;
 			default: displayMenu(&page); break;
 			}	

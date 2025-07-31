@@ -102,11 +102,13 @@ void displayNodeFunc(int* page, graph* g){ //3
 	string data;
 	string newName;
 	int nodeIdx;
+	int studentFound = 1;
 
 
 
 		while(on){
 		
+		studentFound = 1;
 		system("cls");
 		
 		switch(subpage){
@@ -114,11 +116,11 @@ void displayNodeFunc(int* page, graph* g){ //3
 			case 0: printf("Add/Edit/Delete Node Menu\n\n");
 					string options0[4] = {"Add Node", "Edit Node Data", "Delete Node", "Back to Main Menu"};
 					printOptions(4, options0, 1);
-					scanf("%d", choice);
 					choice = getInput(1, 4);
-					if(choice == 4)
+					if(choice == 4){
 						*page = 0;
-					else
+						on = 0;
+					}else
 						subpage = choice;
 					break;
 					
@@ -141,9 +143,19 @@ void displayNodeFunc(int* page, graph* g){ //3
 						printf("Enter the original name of student: ");
 						scanf("%s", name);
 						nodeIdx = returnNodeIdxName(g, name);
-						printf("\nEnter new name of student: ");
-						scanf("%s", newName);
-						editNodeName(g->nodes[nodeIdx], newName);
+						
+						if(nodeIdx == -1){
+							studentFound = 0;
+							printf("\nError! No student with that name was found.\n\n[1] Back to Node Menu\n\n");
+							getInput(1,1);
+						}
+						
+						if(studentFound){
+							printf("\nEnter new name of student: ");
+							scanf("%s", newName);
+							editNodeName(g->nodes[nodeIdx], newName);
+						}
+						
 						subpage = 0;
 					}
 					
@@ -151,9 +163,19 @@ void displayNodeFunc(int* page, graph* g){ //3
 						printf("Enter the original ID number of student: ");
 						scanf("%s", data);
 						nodeIdx = returnNodeIdxData(g, data);
-						printf("\nEnter ID number of student: ");
-						scanf("%s", newName);
-						editNodeData(g->nodes[nodeIdx], newName);
+						
+						if(nodeIdx == -1){
+							studentFound = 0;
+							printf("\nError! No student with that ID number was found.\n\n[1] Back to Node Menu\n\n");
+							getInput(1,1);
+						}
+						
+						if(studentFound){
+							printf("\nEnter ID number of student: ");
+							scanf("%s", newName);
+							editNodeData(g->nodes[nodeIdx], newName);
+						}
+						
 						subpage = 0;						
 					}
 					break;
@@ -170,7 +192,17 @@ void displayNodeFunc(int* page, graph* g){ //3
 						printf("Enter name of student: ");
 						scanf("%s", name);
 						nodeIdx = returnNodeIdxName(g, name);
-						deleteNode(g, nodeIdx);
+						
+						if(nodeIdx == -1){
+							studentFound = 0;
+							printf("\nError! No student with that name was found.\n\n[1] Back to Node Menu\n\n");
+							getInput(1,1);
+						}
+						
+						if(studentFound){
+							deleteNode(g, nodeIdx);
+						}
+						
 						subpage = 0;
 					}
 					
@@ -178,7 +210,17 @@ void displayNodeFunc(int* page, graph* g){ //3
 						printf("Enter the ID number of student: ");
 						scanf("%s", data);
 						nodeIdx = returnNodeIdxData(g, data);
-						deleteNode(g, nodeIdx);
+						
+						if(nodeIdx == -1){
+							studentFound = 0;
+							printf("\nError! No student with that ID number was found.\n\n[1] Back to Node Menu\n\n");
+							getInput(1,1);
+						}
+						
+						if(studentFound){
+							deleteNode(g, nodeIdx);
+						}
+						
 						subpage = 0;						
 					}
 					break;
@@ -196,6 +238,7 @@ void displayEdgeFunc(int* page, graph* g){
 	int nodeIdx1;
 	int nodeIdx2;
 	int weight;
+	int studentFound;
 	
 	string options;
 	
@@ -204,6 +247,7 @@ void displayEdgeFunc(int* page, graph* g){
 	
 		while(on){
 		
+		studentFound = 1;
 		system("cls");
 		
 		switch(subpage){
@@ -211,11 +255,11 @@ void displayEdgeFunc(int* page, graph* g){
 			case 0: printf("Add/Edit/Delete Edge Menu\n\n");
 					string options0[4] = {"Add Edge", "Delete Edge", "Edit Edge Weight", "Back to Main Menu"};
 					printOptions(4, options0, 1);
-					scanf("%d", choice);
 					choice = getInput(1, 4);
-					if(choice == 3)
+					if(choice == 4){
 						*page = 0;
-					else
+						on = 0;
+					}else
 						subpage = choice;
 					break;
 					
@@ -230,12 +274,35 @@ void displayEdgeFunc(int* page, graph* g){
 						printf("Enter name of first student: ");
 						scanf("%s", node1);
 						nodeIdx1 = returnNodeIdxName(g, node1);
-						printf("\nEnter name of second student: ");
-						scanf("%s", node2);
-						nodeIdx2 = returnNodeIdxName(g, node2);
-						printf("Enter time both students have been in contact (in minutes): ");
-						scanf("%d", weight);
-						addEdge(g->nodes[nodeIdx1], g->nodes[nodeIdx2], weight);
+						
+						if(nodeIdx1 == -1){
+							studentFound = 0;
+							printf("\nError! No student with that name was found.\n\n[1] Back to Edge Menu\n\n");
+							getInput(1,1);
+						}
+						
+						if(studentFound){
+							
+							printf("\nEnter name of second student: ");
+							scanf("%s", node2);
+							nodeIdx2 = returnNodeIdxName(g, node2);
+							
+							if(nodeIdx2 == -1){
+								studentFound = 0;
+								printf("\nError! No student with that name was found.\n\n[1] Back to Edge Menu\n\n");
+								getInput(1,1);
+							}
+							
+							if(studentFound){
+								
+								printf("\nEnter time both students have been in contact (in minutes): ");
+								scanf("%d", &weight);
+								addEdge(g->nodes[nodeIdx1], g->nodes[nodeIdx2], weight);
+								
+							}
+							
+						}
+						
 						subpage = 0;
 					}
 					
@@ -243,12 +310,33 @@ void displayEdgeFunc(int* page, graph* g){
 						printf("Enter ID number of first student: ");
 						scanf("%s", node1);
 						nodeIdx1 = returnNodeIdxData(g, node1);
-						printf("\nEnter ID number of second student: ");
-						scanf("%s", node2);
-						nodeIdx2 = returnNodeIdxData(g, node2);
-						printf("Enter time both students have been in contact (in minutes): ");
-						scanf("%d", weight);
-						addEdge(g->nodes[nodeIdx1], g->nodes[nodeIdx2], weight);
+						
+						if(nodeIdx1 == -1){
+							studentFound = 0;
+							printf("\nError! No student with that ID number was found.\n\n[1] Back to Edge Menu\n\n");
+							getInput(1,1);
+						}
+						
+						if(studentFound){
+							
+							printf("\nEnter ID number of second student: ");
+							scanf("%s", node2);
+							nodeIdx2 = returnNodeIdxData(g, node2);
+							
+							if(nodeIdx2 == -1){
+								studentFound = 0;
+								printf("\nError! No student with that ID number was found.\n\n[1] Back to Edge Menu\n\n");
+								getInput(1,1);
+							}
+							
+							if(studentFound){
+								printf("\nEnter time both students have been in contact (in minutes): ");
+								scanf("%d", &weight);
+								addEdge(g->nodes[nodeIdx1], g->nodes[nodeIdx2], weight);
+							}
+							
+						}
+						
 						subpage = 0;
 					}
 					break;
@@ -263,10 +351,31 @@ void displayEdgeFunc(int* page, graph* g){
 						printf("Enter name of first student: ");
 						scanf("%s", node1);
 						nodeIdx1 = returnNodeIdxName(g, node1);
-						printf("\nEnter name of second student: ");
-						scanf("%s", node2);
-						nodeIdx2 = returnNodeIdxName(g, node2);
-						deleteEdge(g->nodes[nodeIdx1], g->nodes[nodeIdx2]);
+						
+						if(nodeIdx1 == -1){
+							studentFound = 0;
+							printf("\nError! No student with that name was found.\n\n[1] Back to Edge Menu\n\n");
+							getInput(1,1);
+						}
+						
+						if(studentFound){
+							
+							printf("\nEnter name of second student: ");
+							scanf("%s", node2);
+							nodeIdx2 = returnNodeIdxName(g, node2);
+							
+							if(nodeIdx2 == -1){
+								studentFound = 0;
+								printf("\nError! No student with that name was found.\n\n[1] Back to Edge Menu\n\n");
+								getInput(1,1);
+							}
+							
+							if(studentFound){
+								deleteEdge(g->nodes[nodeIdx1], g->nodes[nodeIdx2]);
+							}
+							
+						}
+						
 						subpage = 0;
 					}
 					
@@ -274,10 +383,31 @@ void displayEdgeFunc(int* page, graph* g){
 						printf("Enter ID number of first student: ");
 						scanf("%s", node1);
 						nodeIdx1 = returnNodeIdxData(g, node1);
-						printf("\nEnter ID number of second student: ");
-						scanf("%s", node2);
-						nodeIdx2 = returnNodeIdxData(g, node2);
-						deleteEdge(g->nodes[nodeIdx1], g->nodes[nodeIdx2]);
+						
+						if(nodeIdx1 == -1){
+							studentFound = 0;
+							printf("\nError! No student with that ID number was found.\n\n[1] Back to Edge Menu\n\n");
+							getInput(1,1);
+						}
+						
+						if(studentFound){
+						
+							printf("\nEnter ID number of second student: ");
+							scanf("%s", node2);
+							nodeIdx2 = returnNodeIdxData(g, node2);
+							
+							if(nodeIdx2 == -1){
+								studentFound = 0;
+								printf("\nError! No student with that ID number was found.\n\n[1] Back to Edge Menu\n\n");
+								getInput(1,1);
+							}
+							
+							if(studentFound){
+								deleteEdge(g->nodes[nodeIdx1], g->nodes[nodeIdx2]);
+							}
+						
+						}
+						
 						subpage = 0;
 					}
 					break;	
@@ -292,12 +422,35 @@ void displayEdgeFunc(int* page, graph* g){
 						printf("Enter name of first student: ");
 						scanf("%s", node1);
 						nodeIdx1 = returnNodeIdxName(g, node1);
-						printf("\nEnter name of second student: ");
-						scanf("%s", node2);
-						nodeIdx2 = returnNodeIdxName(g, node2);
-						printf("Enter new time both students have been in contact (in minutes): ");
-						scanf("%d", weight);
-						editEdge(g->nodes[nodeIdx1], g->nodes[nodeIdx2], weight);
+						
+						if(nodeIdx1 == -1){
+							studentFound = 0;
+							printf("\nError! No student with that name was found.\n\n[1] Back to Edge Menu\n\n");
+							getInput(1,1);
+						}
+						
+						if(studentFound){
+							
+							printf("\nEnter name of second student: ");
+							scanf("%s", node2);
+							nodeIdx2 = returnNodeIdxName(g, node2);
+							
+							if(nodeIdx2 == -1){
+								studentFound = 0;
+								printf("\nError! No student with that name was found.\n\n[1] Back to Edge Menu\n\n");
+								getInput(1,1);
+							}
+							
+							if(studentFound){
+								
+								printf("Enter new time both students have been in contact (in minutes): ");
+								scanf("%d", &weight);
+								editEdge(g->nodes[nodeIdx1], g->nodes[nodeIdx2], weight);
+								
+							}
+							
+						}
+						
 						subpage = 0;
 					}
 					
@@ -305,12 +458,35 @@ void displayEdgeFunc(int* page, graph* g){
 						printf("Enter ID number of first student: ");
 						scanf("%s", node1);
 						nodeIdx1 = returnNodeIdxData(g, node1);
-						printf("\nEnter ID number of second student: ");
-						scanf("%s", node2);
-						nodeIdx2 = returnNodeIdxData(g, node2);
-						printf("Enter new time both students have been in contact (in minutes): ");
-						scanf("%d", weight);
-						editEdge(g->nodes[nodeIdx1], g->nodes[nodeIdx2], weight);
+						
+						if(nodeIdx1 == -1){
+							studentFound = 0;
+							printf("\nError! No student with that ID number was found.\n\n[1] Back to Edge Menu\n\n");
+							getInput(1,1);
+						}
+						
+						if(studentFound){
+							
+							printf("\nEnter ID number of second student: ");
+							scanf("%s", node2);
+							nodeIdx2 = returnNodeIdxData(g, node2);
+							
+							if(nodeIdx2 == -1){
+								studentFound = 0;
+								printf("\nError! No student with that ID number was found.\n\n[1] Back to Edge Menu\n\n");
+								getInput(1,1);
+							}
+							
+							if(studentFound){
+								
+								printf("Enter new time both students have been in contact (in minutes): ");
+								scanf("%d", &weight);
+								editEdge(g->nodes[nodeIdx1], g->nodes[nodeIdx2], weight);
+								
+							}
+							
+						}
+						
 						subpage = 0;
 					}
 					break;

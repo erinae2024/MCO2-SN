@@ -100,13 +100,10 @@ void addEdge(node* node1, node* node2, int weight){
 	
 }
 
-void editEdge(node* node1, node* node2, int weight){
+int editEdge(node* node1, node* node2, int weight){
 	
 	int full = 0;
-	
-	if(node1->edgeNum == MAX_EDGES || node2->edgeNum == MAX_EDGES){
-		full = 1;
-	}
+	int exist = 0;
 	
 	if(!full){
 		
