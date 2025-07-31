@@ -108,7 +108,7 @@ void printRiskStudentName(graph* g, string key) {
 					for(int i = 0; i < currentNode->edgeNum; i++) {
 			        	
 		        		adjNode = currentNode->edges[i];
-		    	        adjIdx = returnNodeIdxName(g, adjNode->name); 
+		    	        adjIdx = returnNodeIdxData(g, adjNode->data);  
 		            
 		        	    if(adjIdx != -1 && !visited[adjIdx] && currentNode->edgeWeights[i] > 30) {
 		    	            visited[adjIdx] = 1;

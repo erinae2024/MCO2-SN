@@ -25,13 +25,6 @@ int main(){
 	addNode(mainGraph, "Ness", "010"); //LIMITATION: IF THERE ARE TWO NODES WITH SAME NAME, BFSALGO WILL DO THE FIRST INSTANCE OF THE NAME
 	addEdge(mainGraph->nodes[3], mainGraph->nodes[5], 60);
 	
-	/*string name;
-	
-	printf("Enter student's name: ");
-	scanf(" %[^\n]", name);
-	
-	printf("You entered: %s\n", name);
-	printf("%d", returnNodeIdxName(mainGraph, name)); */
 	
 	while(on){
 		
