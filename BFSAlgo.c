@@ -78,7 +78,7 @@ void printRiskStudentName(graph* g, string key) {
 		node* adjNode;
 		int adjIdx;
     	
-    	if(rootNodeIdx != 1) {
+    	if(rootNodeIdx != -1) {
 		    
 		    //Initialize array to be filled with 0
 		    for(int i = 0; i < g->nodeNum; i++) {
@@ -146,7 +146,7 @@ void printRiskStudentData(graph* g, string key) {
     rootNodeIdx = returnNodeIdxData(g, key);
     
     if(rootNodeIdx == -1){
-    	printf("Error! No student with this name found in graph!\n\n");
+    	printf("Error! No student with this ID number found in graph!\n\n");
     	studentFound = 0;
 	}
     
@@ -164,7 +164,7 @@ void printRiskStudentData(graph* g, string key) {
 		node* adjNode;
 		int adjIdx;
     	
-    	if(rootNodeIdx != 1) {
+    	if(rootNodeIdx != -1) {
 		    
 		    //Initialize array to be filled with 0
 		    for(int i = 0; i < g->nodeNum; i++) {

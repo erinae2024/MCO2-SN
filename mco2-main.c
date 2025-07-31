@@ -7,7 +7,7 @@ int main(){
 	int page = 0;
 	
 	graph* mainGraph = createGraph("DLSU Students", "Student Name", "ID Number");
-	addNode(mainGraph, "Santos, Erin D.", "121");
+	addNode(mainGraph, "ERIN", "121");
 	addEdge(mainGraph->nodes[0], mainGraph->nodes[1], 120);
 	
 	addNode(mainGraph, "De Leon, Alaine A.", "123");
@@ -22,8 +22,9 @@ int main(){
 	
 	editNodeName(mainGraph->nodes[3], "Ness");
 	addNode(mainGraph, "Bang Chan", "197");
-	addNode(mainGraph, "Ness", "010"); //LIMITATION: IF THERE ARE TWO NODES WITH SAME NAME, BFSALGO WILL DO THE FIRST INSTANCE OF THE NAME
+//	addNode(mainGraph, "Ness", "010"); //LIMITATION: IF THERE ARE TWO NODES WITH SAME NAME, BFSALGO WILL DO THE FIRST INSTANCE OF THE NAME
 	addEdge(mainGraph->nodes[3], mainGraph->nodes[5], 60);
+	
 	
 	
 	while(on){
