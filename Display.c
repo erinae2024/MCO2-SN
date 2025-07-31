@@ -71,7 +71,7 @@ void displayMenu(int *page){ //0
 	
 }
 
-void displayDetermine(int *page, graph* g){ //fix to account for student not existing
+void displayDetermine(int *page, graph* g){ 
 
 	int choice = 0;
 	string input;	
@@ -80,16 +80,23 @@ void displayDetermine(int *page, graph* g){ //fix to account for student not exi
 	
 	system("cls");
 	
+	printf("Determine Possibly Infected Students Menu\n\n");
 	printf("Choose input type:\n");
-	string options[2] = {"Student Name", "Student ID Number"};
-	printOptions(2, options, 1);
-	type = getInput(1,2);
+	string options[3] = {"Student Name", "Student ID Number", "Back to Main Menu"};
+	printOptions(3, options, 1);
+	type = getInput(1,3);
 	
 	if(type == 1){
 		
 		printf("Enter the name of student: ");
 		scanf(" %[^\n]", input);
 		printRiskStudentName(g, input);
+		
+		printf("\n[1] Back to Main Menu\n");
+		printf("Please enter the number of your chosen option: ");
+		scanf("%d", &choice);
+		if(choice == 1)
+			*page = 0;
 	}
 	
 	if(type == 2){
@@ -97,15 +104,50 @@ void displayDetermine(int *page, graph* g){ //fix to account for student not exi
 		printf("Enter the ID number of student: ");
 		scanf("%s", input);
 		printRiskStudentData(g, input);
-	}
 		
+		printf("\n[1] Back to Main Menu\n");
+		printf("Please enter the number of your chosen option: ");
+		scanf("%d", &choice);
+		if(choice == 1)
+			*page = 0;
+	}
+	else if(type == 3)
+		*page = 0;	
 
-	printf("\n[1] Back to Main Menu\n");
-	printf("Please enter the number of your chosen option: ");
-	scanf("%d", &choice);
-	if(choice == 1)
-		*page = 0;
+
 	
+	
+}
+
+void displayImportExport(int *page, graph* g){
+	
+	int choice;
+	string input;	
+	
+	system("cls");
+	
+	printf("Import/Export Graph Menu\n\n");
+	string options[3] = {"Import Graph", "Export Graph", "Back to Main Menu"};
+	printOptions(3, options, 1);
+	choice = getInput(1,3);
+	
+	if(choice == 1){
+		
+		printf("IMPORT FUNCTION GOES HERE");
+		printf("\n[1] Back to Node Menu\n");
+		choice = getInput(1,1);
+		*page = 0;
+	}
+
+	if(choice == 2){
+		
+		printf("EXPORT FUNCTION GOES HERE");
+		printf("\n[1] Back to Node Menu\n");
+		choice = getInput(1,1);
+		*page = 0;
+	}
+	else if(choice == 3)
+		*page = 0;
 	
 }
 

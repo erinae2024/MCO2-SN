@@ -37,7 +37,7 @@ int main(){
 			
 			case 0: displayMenu(&page); break;
 			case 1: displayDetermine(&page, mainGraph); break;
-			case 2: printf("FUNCTION IN PROGRESS"); break;
+			case 2: displayImportExport(&page, mainGraph); break;
 			case 3: displayNodeFunc(&page, mainGraph); break;
 			case 4: displayEdgeFunc(&page, mainGraph); break;
 			case 5: on = confirmExit(&page); break;

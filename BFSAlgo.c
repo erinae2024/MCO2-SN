@@ -137,7 +137,6 @@ void printRiskStudentName(graph* g, string key) {
     
 }
 
-
 void printRiskStudentData(graph* g, string key) {
 	
 	int studentFound = 1;
