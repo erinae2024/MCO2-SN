@@ -74,20 +74,32 @@ void displayMenu(int *page){ //0
 void displayDetermine(int *page, graph* g){ //fix to account for student not existing
 
 	int choice = 0;
-	string name;	
+	string input;	
 	int nodeIdx;	
+	int type;
 	
 	system("cls");
+	
+	printf("Choose input type:\n");
+	string options[2] = {"Student Name", "Student ID Number"};
+	printOptions(2, options, 1);
+	type = getInput(1,2);
+	
+	if(type == 1){
+		
+		printf("Enter the name of student: ");
+		scanf(" %[^\n]", input);
+		printRiskStudentName(g, input);
+	}
+	
+	if(type == 2){
+		
+		printf("Enter the ID number of student: ");
+		scanf("%s", input);
+		printRiskStudentData(g, input);
+	}
+		
 
-	
-	printf("Enter student's name: ");
-	scanf(" %[^\n]", name);
-	
-	printf("You entered: %s\n", name);
-	
-	printRiskStudent(g, name);
-
-	
 	printf("\n[1] Back to Main Menu\n");
 	printf("Please enter the number of your chosen option: ");
 	scanf("%d", &choice);
@@ -131,7 +143,7 @@ void displayNodeFunc(int* page, graph* g){ //3
 					
 			case 1: printf("Add Node Menu\n\n");
 					printf("Enter student's name: ");
-					scanf("%[^\n]s", name);
+					scanf(" %[^\n]", name);
 					printf("\nEnter the student's ID number: ");
 					scanf("%s", data);
 					addNode(g, name, data);
@@ -145,7 +157,7 @@ void displayNodeFunc(int* page, graph* g){ //3
 					
 					if(choice == 1){
 						printf("Enter the original name of student: ");
-						scanf("%[^\n]s", name);
+						scanf(" %[^\n]", name);
 						nodeIdx = returnNodeIdxName(g, name);
 						
 						if(nodeIdx == -1){
@@ -156,7 +168,7 @@ void displayNodeFunc(int* page, graph* g){ //3
 						
 						if(studentFound){
 							printf("\nEnter new name of student: ");
-							scanf("%[^\n]s", newName);
+							scanf(" %[^\n]", newName);
 							editNodeName(g->nodes[nodeIdx], newName);
 						}
 						
@@ -194,7 +206,7 @@ void displayNodeFunc(int* page, graph* g){ //3
 					
 					if(choice == 1){
 						printf("Enter name of student: ");
-						scanf("%[^\n]s", name);
+						scanf(" %[^\n]", name);
 						nodeIdx = returnNodeIdxName(g, name);
 						
 						if(nodeIdx == -1){
@@ -277,7 +289,7 @@ void displayEdgeFunc(int* page, graph* g){
 					
 					if(choice == 1){
 						printf("Enter name of first student: ");
-						scanf("%[^\n]s", node1);
+						scanf(" %[^\n]", node1);
 						nodeIdx1 = returnNodeIdxName(g, node1);
 						
 						if(nodeIdx1 == -1){
@@ -289,7 +301,7 @@ void displayEdgeFunc(int* page, graph* g){
 						if(studentFound){
 							
 							printf("\nEnter name of second student: ");
-							scanf("%[^\n]s", node2);
+							scanf(" %[^\n]", node2);
 							nodeIdx2 = returnNodeIdxName(g, node2);
 							
 							if(nodeIdx2 == -1){
@@ -354,7 +366,7 @@ void displayEdgeFunc(int* page, graph* g){
 					
 					if(choice == 1){
 						printf("Enter name of first student: ");
-						scanf("%[^\n]s", node1);
+						scanf(" %[^\n]", node1);
 						nodeIdx1 = returnNodeIdxName(g, node1);
 						
 						if(nodeIdx1 == -1){
@@ -366,7 +378,7 @@ void displayEdgeFunc(int* page, graph* g){
 						if(studentFound){
 							
 							printf("\nEnter name of second student: ");
-							scanf("%[^\n]s", node2);
+							scanf(" %[^\n]", node2);
 							nodeIdx2 = returnNodeIdxName(g, node2);
 							
 							if(nodeIdx2 == -1){
@@ -438,7 +450,7 @@ void displayEdgeFunc(int* page, graph* g){
 					
 					if(choice == 1){
 						printf("Enter name of first student: ");
-						scanf("%[^\n]s", node1);
+						scanf(" %[^\n]", node1);
 						nodeIdx1 = returnNodeIdxName(g, node1);
 						
 						if(nodeIdx1 == -1){
@@ -451,7 +463,7 @@ void displayEdgeFunc(int* page, graph* g){
 						if(studentFound){
 							
 							printf("\nEnter name of second student: ");
-							scanf("%[^\n]s", node2);
+							scanf(" %[^\n]", node2);
 							nodeIdx2 = returnNodeIdxName(g, node2);
 							      
 							if(nodeIdx2 == -1){

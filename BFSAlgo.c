@@ -52,10 +52,12 @@ void printAdjacentNodes(node* n){
 		
 }
 
-void printRiskStudent(graph* g, string key) {
+void printRiskStudentName(graph* g, string key) {
 	
 	int studentFound = 1;
-    int rootNodeIdx = returnNodeIdxData(g, key);
+    int rootNodeIdx;
+    
+    rootNodeIdx = returnNodeIdxName(g, key);
     
     if(rootNodeIdx == -1){
     	printf("Error! No student with this name found in graph!\n\n");
@@ -106,7 +108,7 @@ void printRiskStudent(graph* g, string key) {
 					for(int i = 0; i < currentNode->edgeNum; i++) {
 			        	
 		        		adjNode = currentNode->edges[i];
-		    	        adjIdx = returnNodeIdxData(g, adjNode->data); // You'll need this function
+		    	        adjIdx = returnNodeIdxName(g, adjNode->name); 
 		            
 		        	    if(adjIdx != -1 && !visited[adjIdx] && currentNode->edgeWeights[i] > 30) {
 		    	            visited[adjIdx] = 1;
@@ -130,59 +132,93 @@ void printRiskStudent(graph* g, string key) {
 			printf("\n");
 	    
     	}
-    
-    	else
-    		printf("Error 404: Student Not Found");
-    		
+  	
 	}
     
 }
 
 
-
-
-
-
-/*int main(){
+void printRiskStudentData(graph* g, string key) {
 	
-	graph* mainGraph = createGraph("DLSU Students", "124", "Cruz, Zach B.");
-	addNode(mainGraph, "121", "Santos, Erin D.");
-	addEdge(mainGraph->nodes[0], mainGraph->nodes[1], 120);
-	
-	addNode(mainGraph, "123", "De Leon, Alaine A.");
-	addEdge(mainGraph->nodes[0], mainGraph->nodes[2], 50);
-	addEdge(mainGraph->nodes[1], mainGraph->nodes[2], 88);
-	
-	addNode(mainGraph, "001", "Sans");
-	addNode(mainGraph, "002", "Papyrus");
-	addEdge(mainGraph->nodes[2], mainGraph->nodes[3], 999);
-	addEdge(mainGraph->nodes[2], mainGraph->nodes[4], 20);
-	//displayGraphAsAdjacencyList(mainGraph);
-	
-	editNodeData(mainGraph->nodes[3], "Ness");
-	addNode(mainGraph, "197", "Bang Chan");
-	addEdge(mainGraph->nodes[3], mainGraph->nodes[5], 60);
-	
-	//displayGraphAsAdjacencyList(mainGraph);
-
-	
-	queue* mainq;
-	mainq = CreateQueue(mainGraph->nodeNum);
-	Enqueue(mainq, mainGraph->nodes[3]);
-	Enqueue(mainq, mainGraph->nodes[4]);
-	Enqueue(mainq, mainGraph->nodes[0]);
-	Enqueue(mainq, mainGraph->nodes[2]);
-	DisplayQueue(mainq);
-	Dequeue(mainq);
-	DisplayQueue(mainq);
-	
-	
-	printRiskStudent(mainGraph, "Cruz, Zach B.");
-	printRiskStudent(mainGraph, "Santos, Erin D.");
-	printRiskStudent(mainGraph, "De Leon, Alaine A.");
-	printRiskStudent(mainGraph, "Ness");
-//	printRiskStudent(mainGraph, "Papyrus");
-//	printRiskStudent(mainGraph, "Bang Chan");
-
-	
-}*/
+	int studentFound = 1;
+    int rootNodeIdx;
+    
+    rootNodeIdx = returnNodeIdxData(g, key);
+    
+    if(rootNodeIdx == -1){
+    	printf("Error! No student with this name found in graph!\n\n");
+    	studentFound = 0;
+	}
+    
+    if(studentFound){
+    	
+    	printAdjacentNodes(g->nodes[rootNodeIdx]);
+    
+    	printf("----------------");
+    	printf("\nList of Possibly Infected Students:\n\n");
+    
+   		queue* q = CreateQueue(g->nodeNum);
+    	node* result[g->nodeNum];
+		int resultIdx = 0;
+		int visited[g->nodeNum];
+		node* adjNode;
+		int adjIdx;
+    	
+    	if(rootNodeIdx != 1) {
+		    
+		    //Initialize array to be filled with 0
+		    for(int i = 0; i < g->nodeNum; i++) {
+		    	visited[i] = 0;
+    		}
+		
+		    node* rootNode = g->nodes[rootNodeIdx];
+		    Enqueue(q, rootNode);
+	    	visited[rootNodeIdx] = 1;
+			
+	   		
+	   		if(returnNoRisk(rootNode) == 1)
+	   			printf("Infected student has not been in contact with another student for over 30 minutes.\n\n");
+	   		else{
+	   			
+	   			while(QueueEmpty(q) != 1) {
+	    		
+	    	    node* currentNode = Dequeue(q);
+	    	    
+	    	    //only put non-root nodes into the result
+			        if(currentNode != rootNode) {
+			            result[resultIdx] = currentNode;
+			            resultIdx++;
+			            
+			        }
+						
+					for(int i = 0; i < currentNode->edgeNum; i++) {
+			        	
+		        		adjNode = currentNode->edges[i];
+		    	        adjIdx = returnNodeIdxData(g, adjNode->data); 
+		            
+		        	    if(adjIdx != -1 && !visited[adjIdx] && currentNode->edgeWeights[i] > 30) {
+		    	            visited[adjIdx] = 1;
+		    	            Enqueue(q, adjNode);
+		    	       	}
+		    	    }	
+				}	
+			
+			
+	        	for(int i = 0; i < resultIdx; i++) {
+		    	    node* displayNode = result[i];
+		    	    printf("%d. ", i+1);
+		    	    printNodeName(displayNode);
+		    	    printf(":[");
+		    	    printNodeData(displayNode);
+		    	    printf("]");
+		    	    printf("\n");
+	   			}
+	    	}
+	    
+			printf("\n");
+	    
+    	}
+  	
+	}
+    
+}

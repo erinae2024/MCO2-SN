@@ -22,6 +22,7 @@ int main(){
 	
 	editNodeName(mainGraph->nodes[3], "Ness");
 	addNode(mainGraph, "Bang Chan", "197");
+	addNode(mainGraph, "Ness", "010"); //LIMITATION: IF THERE ARE TWO NODES WITH SAME NAME, BFSALGO WILL DO THE FIRST INSTANCE OF THE NAME
 	addEdge(mainGraph->nodes[3], mainGraph->nodes[5], 60);
 	
 	/*string name;
