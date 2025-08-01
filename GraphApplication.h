@@ -36,7 +36,7 @@ struct graphTag{
 }; typedef struct graphTag graph;
 
 graph* createGraph(string graphName, string initName, string initData);
-void addNode(graph* g, string name, string data);
+int addNode(graph* g, string name, string data);
 void deleteNode(graph* g, int index);
 void addEdge(node* node1, node* node2, int weight);
 void editEdge(node* node1, node* node2, int weight);
@@ -52,3 +52,6 @@ void editNodeData(node* n, string newData);
 //Return index functions
 int returnNodeIdxName(graph*g, string key);
 int returnNodeIdxData(graph*g, string key);
+
+//Util
+int IDUnique(graph* g, string idNum);

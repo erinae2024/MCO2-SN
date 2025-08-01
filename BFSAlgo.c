@@ -2,7 +2,8 @@
 
 int returnNoRisk(node* n);
 void printAdjacentNodes(node* n); //to be used to show students who have been in contact with specified infected student
-void printRiskStudent(graph* g, string key);
+void printRiskStudentName(graph* g, string key);
+void printRiskStudentData(graph* g, string key);
 
 int returnNoRisk(node* n){
 	
@@ -77,29 +78,27 @@ void printRiskStudentName(graph* g, string key) {
 		int visited[g->nodeNum];
 		node* adjNode;
 		int adjIdx;
-    	
-    	if(rootNodeIdx != -1) {
 		    
 		    //Initialize array to be filled with 0
-		    for(int i = 0; i < g->nodeNum; i++) {
-		    	visited[i] = 0;
-    		}
+		for(int i = 0; i < g->nodeNum; i++) {
+	    	visited[i] = 0;
+    	}
 		
-		    node* rootNode = g->nodes[rootNodeIdx];
-		    Enqueue(q, rootNode);
-	    	visited[rootNodeIdx] = 1;
+	    node* rootNode = g->nodes[rootNodeIdx];
+		Enqueue(q, rootNode);
+	    visited[rootNodeIdx] = 1;
 			
 	   		
-	   		if(returnNoRisk(rootNode) == 1)
-	   			printf("Infected student has not been in contact with another student for over 30 minutes.\n\n");
-	   		else{
+	   	if(returnNoRisk(rootNode) == 1)
+	   		printf("Infected student has not been in contact with another student for over 30 minutes.\n\n");
+	   	else{
 	   			
-	   			while(QueueEmpty(q) != 1) {
+	   		while(QueueEmpty(q) != 1) {
 	    		
-	    	    node* currentNode = Dequeue(q);
+	    	node* currentNode = Dequeue(q);
 	    	    
-	    	    //only put non-root nodes into the result
-			        if(currentNode != rootNode) {
+	    	//only put non-root nodes into the result
+		    if(currentNode != rootNode) {
 			            result[resultIdx] = currentNode;
 			            resultIdx++;
 			            
@@ -131,7 +130,7 @@ void printRiskStudentName(graph* g, string key) {
 	    
 			printf("\n");
 	    
-    	}
+    
   	
 	}
     
@@ -162,8 +161,6 @@ void printRiskStudentData(graph* g, string key) {
 		int visited[g->nodeNum];
 		node* adjNode;
 		int adjIdx;
-    	
-    	if(rootNodeIdx != -1) {
 		    
 		    //Initialize array to be filled with 0
 		    for(int i = 0; i < g->nodeNum; i++) {
@@ -216,8 +213,61 @@ void printRiskStudentData(graph* g, string key) {
 	    
 			printf("\n");
 	    
-    	}
+    	
   	
 	}
     
+}
+
+void exportGraph(graph* g){
+	
+		int rootNodeIdx = 0;
+		
+  		queue* q = CreateQueue(g->nodeNum);
+    	node* result[g->nodeNum];
+		int resultIdx = 0;
+		int visited[g->nodeNum];
+		node* adjNode;
+		int adjIdx;
+		    
+		    //Initialize array to be filled with 0
+		    for(int i = 0; i < g->nodeNum; i++) {
+		    	visited[i] = 0;
+    		}
+		
+		    node* rootNode = g->nodes[rootNodeIdx];
+		    Enqueue(q, rootNode);
+	    	visited[rootNodeIdx] = 1;
+	   			
+	   			while(QueueEmpty(q) != 1) {
+	    		
+	    	    	node* currentNode = Dequeue(q);
+	    	    
+			    	result[resultIdx] = currentNode;
+			   	 	resultIdx++;
+			            	
+					for(int i = 0; i < currentNode->edgeNum; i++) {
+			        	
+		        		adjNode = currentNode->edges[i];
+		    	        adjIdx = returnNodeIdxData(g, adjNode->data); 
+		            
+		        	    if(adjIdx != -1 && !visited[adjIdx]) {
+		    	            visited[adjIdx] = 1;
+		    	            Enqueue(q, adjNode);
+		    	       	}
+		    	    }	
+				}	
+			
+			
+	        	for(int i = 0; i < resultIdx; i++) {
+		    	    node* displayNode = result[i];
+		    	    printf("%d. ", i+1);
+		    	    printNodeName(displayNode);
+		    	    printf(":[");
+		    	    printNodeData(displayNode);
+		    	    printf("]");
+		    	    printf("\n");
+	   			}
+	    
+			printf("\n");
 }

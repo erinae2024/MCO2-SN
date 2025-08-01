@@ -22,9 +22,23 @@ int main(){
 	
 	editNodeName(mainGraph->nodes[3], "Ness");
 	addNode(mainGraph, "Bang Chan", "197");
+	
+	addNode(mainGraph, "Lee Felix", "921");
+	addNode(mainGraph, "Han Jisung", "008");
+	addNode(mainGraph, "Seo Changbin", "009");
+	addNode(mainGraph, "Lee Know", "010");
+	addNode(mainGraph, "Kim Seungmin", "011");
+	addNode(mainGraph, "Yang Jeongin", "012");
 //	addNode(mainGraph, "Ness", "010"); //LIMITATION: IF THERE ARE TWO NODES WITH SAME NAME, BFSALGO WILL DO THE FIRST INSTANCE OF THE NAME
 	addEdge(mainGraph->nodes[3], mainGraph->nodes[5], 60);
+	addEdge(mainGraph->nodes[5], mainGraph->nodes[6], 60);
+	addEdge(mainGraph->nodes[7], mainGraph->nodes[5], 60);
+	addEdge(mainGraph->nodes[5], mainGraph->nodes[8], 60);
+	addEdge(mainGraph->nodes[5], mainGraph->nodes[9], 60);
+	addEdge(mainGraph->nodes[10], mainGraph->nodes[5], 60);
+	addEdge(mainGraph->nodes[11], mainGraph->nodes[5], 60);
 	
+	//exportGraph(mainGraph);
 	
 	
 	while(on){
@@ -46,3 +60,7 @@ int main(){
 	}
 }
 
+/*todo: 
+- check for id number in database
+- check whether node with same name and data exists before adding, add error message if node & data exists in graph
+*/

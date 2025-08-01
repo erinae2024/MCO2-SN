@@ -1,4 +1,6 @@
 //Node Stuff;
+
+
 node* createNode(string name, string data){
 	
 	node* newNode = malloc(sizeof(node));
@@ -8,6 +10,21 @@ node* createNode(string name, string data){
 
 	return newNode;
 
+}
+
+int addNode(graph* g, string name, string data){
+	
+	int success = 1;
+	
+	if(IDUnique(g, data) == 1){
+		g->nodes[g->nodeNum] = createNode(name, data);
+		g->nodeNum += 1;
+	}
+	else{
+		success = 0;
+		printf("\nError! Student with this ID number already exists.");
+	}
+	
 }
 
 void deleteNode(graph* g, int index){
@@ -56,6 +73,23 @@ void printNodeData(node* n){
 	
 }
 
+//Util
+int IDUnique(graph* g, string idNum){
+	
+	int i;
+	int isUnique = 1;
+	string currentIDNum;
+	
+	for(i=0; i<g->nodeNum; i++){
+		
+		strcpy(currentIDNum, g->nodes[i]->data);
+		if(strcmp(currentIDNum, idNum) == 0)
+			isUnique = 0;
+	}
+	
+	return isUnique;
+}
+
 
 //GraphStuff;
 graph* createGraph(string graphName, string initName, string initData){
@@ -70,12 +104,7 @@ graph* createGraph(string graphName, string initName, string initData){
 	
 }
 
-void addNode(graph* g, string name, string data){
-	
-	g->nodes[g->nodeNum] = createNode(name, data);
-	g->nodeNum += 1;
-	
-}
+
 
 
 void addEdge(node* node1, node* node2, int weight){ //fix
@@ -292,63 +321,3 @@ int returnNodeIdxData(graph*g, string key){
 	return -1;
 	
 }
-
-
-/*int main(){
-	
-	graph* mainGraph = createGraph("DLSU Students", "124", "Cruz, Zach B.");
-	
-	
-	addNode(mainGraph, "121", "Santos, Erin D.");
-	addEdge(mainGraph->nodes[0], mainGraph->nodes[1], 45);
-
-	
-	editEdge(mainGraph->nodes[0], mainGraph->nodes[1], 120);
-	
-	
-	addNode(mainGraph, "123", "De Leon, Alaine A.");
-	addEdge(mainGraph->nodes[0], mainGraph->nodes[2], 50);
-	addEdge(mainGraph->nodes[1], mainGraph->nodes[2], 88);
-
-	
-	addNode(mainGraph, "001", "Sans");
-	addNode(mainGraph, "002", "Papyrus");
-	addEdge(mainGraph->nodes[2], mainGraph->nodes[3], 9999);
-	addEdge(mainGraph->nodes[2], mainGraph->nodes[4], 0);
-	displayGraphAsAdjacencyList(mainGraph);
-	
-	editNodeData(mainGraph->nodes[3], "Ness");
-	displayGraphAsAdjacencyList(mainGraph);
-	
-	editEdge(mainGraph->nodes[0], mainGraph->nodes[1], 111);
-	editEdge(mainGraph->nodes[0], mainGraph->nodes[2], 222);
-	editEdge(mainGraph->nodes[2], mainGraph->nodes[3], 333);
-	editEdge(mainGraph->nodes[2], mainGraph->nodes[4], 444);
-
-	displayGraphAsAdjacencyList(mainGraph);
-	
-	deleteEdge(mainGraph->nodes[0], mainGraph->nodes[1]);
-	deleteEdge(mainGraph->nodes[0], mainGraph->nodes[2]);
-	deleteEdge(mainGraph->nodes[2], mainGraph->nodes[3]);
-	deleteEdge(mainGraph->nodes[2], mainGraph->nodes[4]);
-	
-	addNode(mainGraph, "078", "Bang Chan");
-	
-	displayGraphAsAdjacencyList(mainGraph);
-	
-	deleteNode(mainGraph, 0);
-	displayGraphAsAdjacencyList(mainGraph);
-	deleteNode(mainGraph, 1); 
-	displayGraphAsAdjacencyList(mainGraph);
-	deleteNode(mainGraph, 1); 
-	displayGraphAsAdjacencyList(mainGraph);
-	deleteNode(mainGraph, 0);
-	displayGraphAsAdjacencyList(mainGraph);
-	deleteNode(mainGraph, 0);
-	displayGraphAsAdjacencyList(mainGraph);
-	deleteNode(mainGraph, 0);
-	displayGraphAsAdjacencyList(mainGraph);
-	deleteNode(mainGraph, 0);
-	
-	//displayGraphAsAdjacencyList(mainGraph);
-}*/
