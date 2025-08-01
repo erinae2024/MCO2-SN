@@ -41,7 +41,7 @@ void deleteNode(graph* g, int index);
 void addEdge(node* node1, node* node2, int weight);
 void editEdge(node* node1, node* node2, int weight);
 
-int edgeExistData(node* node1, node* node2);
+int edgeExistData(node* node1, node* node2); //Checks if an edge exists given two nodes
 
 void deleteEdge(node* node1, node* node2);
 int getEdgeIndex(node* node1, node* node2);
@@ -54,4 +54,4 @@ int returnNodeIdxName(graph*g, string key);
 int returnNodeIdxData(graph*g, string key);
 
 //Util
-int IDUnique(graph* g, string idNum);
+int IDUnique(graph* g, string idNum); //Checks if a given ID number is unique (not existing in the graph)

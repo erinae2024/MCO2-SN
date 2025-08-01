@@ -49,10 +49,9 @@ void ImportEdges(graph** g) {
     fscanf(file, "%d", &edgeCount);
 
     for ( i = 0; i < edgeCount; i++) {
-        //fscanf(file, "%s %s %d", id1, id2, &weight);
-        fscanf(file, "%s", id1);
-        fscanf(file, "%s", id2);
-        fscanf(file, "%d", &weight);
+        fscanf(file, "%s", id1); //ID Number of Student 1
+        fscanf(file, "%s", id2); //ID Number of Student 2
+        fscanf(file, "%d", &weight); //Edge weight / Time of contact between them (in minutes)
         int idx1 = returnNodeIdxData(*g, id1);
         int idx2 = returnNodeIdxData(*g, id2);
         
@@ -72,7 +71,7 @@ void ExportGraphNodes(graph* g) {
         return;
     }
 
-    // Export nodes in specified format
+
     fprintf(file, "%s\n", g->name);          // Graph name
     fprintf(file, "%d\n", g->nodeNum);      // Node count
     

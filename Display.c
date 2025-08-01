@@ -60,7 +60,7 @@ int getInputCustom(int min, int max, string str){
 	
 }
 
-void displayMenu(int *page){ //0
+void displayMenu(int *page){
 	
 	printf("Contact Tracing Program\n\n");
 	

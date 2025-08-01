@@ -8,19 +8,19 @@ int main(){
 	
 	graph* mainGraph;
 	
-	ImportNodes(&mainGraph);
-	ImportEdges(&mainGraph);
+	//ImportNodes(&mainGraph);
+	//ImportEdges(&mainGraph);
 	
 	while(on){
 		
 		system("cls");
 
-			displayGraphAsAdjacencyList(mainGraph);
+			//displayGraphAsAdjacencyList(mainGraph);
 			
 			switch(page){
 			
 			case 0: displayMenu(&page); break;
-			case 1: displayDetermine(&page, mainGraph); break;
+			case 1: displayDetermine(&page, mainGraph); break; //Determine Possibly Infected Students
 			case 2: displayImportExport(&page, mainGraph); break;
 			case 3: displayNodeFunc(&page, mainGraph); break;
 			case 4: displayEdgeFunc(&page, mainGraph); break;
@@ -29,7 +29,3 @@ int main(){
 			}	
 	}
 }
-
-/*todo: 
-- bfs to get all edges
-*/

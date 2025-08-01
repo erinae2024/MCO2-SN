@@ -1,6 +1,6 @@
 #include "QueueForGraph.c"
 
-int returnNoRisk(node* n);
+int returnNoRisk(node* n); //used if root node has no edge weights above 30
 void printAdjacentNodes(node* n); //to be used to show students who have been in contact with specified infected student
 void printRiskStudent(graph* g, string key, int type);
 
@@ -16,7 +16,7 @@ int returnNoRisk(node* n){
 	return 1;
 }
 
-void printAdjacentNodes(node* n){ 
+void printAdjacentNodes(node* n){  
 	
 	int i;
 	int alone = 0;
@@ -87,14 +87,14 @@ void printRiskStudent(graph* g, string key, int type) {
 		node* adjNode;
 		int adjIdx;
 		    
-		    //Initialize array to be filled with 0
+		//Initialize visited array to be filled with 0
 		for(i = 0; i < g->nodeNum; i++) {
 	    	visited[i] = 0;
     	}
 		
 	    node* rootNode = g->nodes[rootNodeIdx];
-		Enqueue(q, rootNode);
-	    visited[rootNodeIdx] = 1;
+		Enqueue(q, rootNode); //Enqueue root node
+	    visited[rootNodeIdx] = 1; //Mark as visited
 			
 	   		
 	   	if(returnNoRisk(rootNode) == 1)
@@ -102,21 +102,23 @@ void printRiskStudent(graph* g, string key, int type) {
 	   	else{
 	   			
 	   		while(QueueEmpty(q) != 1) {
-	    		
+	    	
+			//Dequeue current node	
 	    	node* currentNode = Dequeue(q);
 	    	    
-	    	//only put non-root nodes into the result
+	    	//Only put non-root nodes into the result
 		    if(currentNode != rootNode) {
-			            result[resultIdx] = currentNode;
-			            resultIdx++;
+			    result[resultIdx] = currentNode;
+			    resultIdx++;
 			            
-			        }
+			}
 						
 					for(i = 0; i < currentNode->edgeNum; i++) {
 			        	
 		        		adjNode = currentNode->edges[i];
 		    	        adjIdx = returnNodeIdxData(g, adjNode->data);  
-		            
+		            	
+		            	//For each unvisited neighbor of the dequeued node
 		        	    if(adjIdx != -1 && !visited[adjIdx] && currentNode->edgeWeights[i] > 30) {
 		    	            visited[adjIdx] = 1;
 		    	            Enqueue(q, adjNode);
