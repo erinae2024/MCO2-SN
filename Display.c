@@ -1,65 +1,4 @@
-#include "BFSAlgo.c"
-
- 
-void ImportNodes(graph* g) {
-    FILE* file = fopen("GraphNodes.txt", "r");
-    if (!file) {
-        printf("Error opening GraphNodes.txt\n");
-        return;
-    }
-
-    string graphName, name, data;
-    int nodeCount;
-    int i;
-
-    // Read graph name 
-    fscanf(file, " %[^\n]", graphName);
-    
-    // Read node count
-    fscanf(file, "%d", &nodeCount);
-
-    // Create first node (initializes graph)
-    fscanf(file, " %[^\n] %s", name, data);  // Name with spaces, ID without
-    g = createGraph(graphName, name, data);
-
-    // Add remaining nodes
-    for ( i = 1; i < nodeCount; i++) {
-        fscanf(file, " %[^\n] %s", name, data);
-        addNode(g, name, data);
-    }
-
-    fclose(file);
-    printf("Imported %d nodes from GraphNodes.txt\n", nodeCount);
-}
-
-void ImportEdges(graph* g) {
-    if (!g) return;
-
-    FILE* file = fopen("GraphEdges.txt", "r");
-    if (!file) {
-        printf("Error: GraphEdges.txt not found\n");
-        return;
-    }
-
-    string id1, id2;
-    int edgeCount, weight;
-    int i;
-
-    fscanf(file, "%d", &edgeCount);
-
-    for ( i = 0; i < edgeCount; i++) {
-        fscanf(file, "%s %s %d", id1, id2, &weight);
-        int idx1 = returnNodeIdxData(g, id1);
-        int idx2 = returnNodeIdxData(g, id2);
-        
-        if (idx1 != -1 && idx2 != -1) {
-            addEdge(g->nodes[idx1], g->nodes[idx2], weight);
-        }
-    }
-
-    fclose(file);
-    printf("Imported %d edges from GraphEdges.txt\n", edgeCount);
-}
+#include"ImportExport.c"
 
 void printOptions(int count, string optionsStr[], int space){
 	
@@ -194,16 +133,18 @@ void displayImportExport(int *page, graph* g){
 	
 	if(choice == 1){
 		
-		printf("IMPORT FUNCTION GOES HERE");
-		printf("\n[1] Back to Node Menu\n");
+		ImportNodes(&g);
+		ImportEdges(&g);
+		printf("\n[1] Back to Import/Export Graph Menu\n");
 		choice = getInput(1,1);
 		*page = 0;
 	}
 
 	if(choice == 2){
 		
-		printf("EXPORT FUNCTION GOES HERE");
-		printf("\n[1] Back to Node Menu\n");
+		ExportGraphNodes(g);
+		ExportGraphEdges(g);
+		printf("\n[1] Back to Import/Export Graph Menu\n");
 		choice = getInput(1,1);
 		*page = 0;
 	}
