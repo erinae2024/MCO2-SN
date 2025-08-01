@@ -2,8 +2,8 @@
 
 int returnNoRisk(node* n);
 void printAdjacentNodes(node* n); //to be used to show students who have been in contact with specified infected student
-void printRiskStudentName(graph* g, string key);
-void printRiskStudentData(graph* g, string key);
+void printRiskStudentgraph* g, string key, int type);
+
 
 int returnNoRisk(node* n){
 	
@@ -53,16 +53,23 @@ void printAdjacentNodes(node* n){
 		
 }
 
-void printRiskStudentName(graph* g, string key) {
+void printRiskStudentgraph(graph* g, string key, int type) {
 	
 	int studentFound = 1;
     int rootNodeIdx;
     
-    rootNodeIdx = returnNodeIdxName(g, key);
+    if(type == 1)
+    	rootNodeIdx = returnNodeIdxName(g, key);
+    else if(type == 2)
+    	rootNodeIdx = returnNodeIdxData(g, key);
+    
     
     if(rootNodeIdx == -1){
-    	printf("Error! No student with this name found in graph!\n\n");
     	studentFound = 0;
+    	if(type == 1)
+    		printf("Error! No student with this name found in graph!\n\n");
+    	else if(type == 2)
+    		printf("Error! No student with this ID number found in graph!\n\n");
 	}
     
     if(studentFound){
@@ -136,92 +143,11 @@ void printRiskStudentName(graph* g, string key) {
     
 }
 
-void printRiskStudentData(graph* g, string key) {
-	
-	int studentFound = 1;
-    int rootNodeIdx;
-    
-    rootNodeIdx = returnNodeIdxData(g, key);
-    
-    if(rootNodeIdx == -1){
-    	printf("Error! No student with this ID number found in graph!\n\n");
-    	studentFound = 0;
-	}
-    
-    if(studentFound){
-    	
-    	printAdjacentNodes(g->nodes[rootNodeIdx]);
-    
-    	printf("----------------");
-    	printf("\nList of Possibly Infected Students:\n\n");
-    
-   		queue* q = CreateQueue(g->nodeNum);
-    	node* result[g->nodeNum];
-		int resultIdx = 0;
-		int visited[g->nodeNum];
-		node* adjNode;
-		int adjIdx;
-		    
-		    //Initialize array to be filled with 0
-		    for(int i = 0; i < g->nodeNum; i++) {
-		    	visited[i] = 0;
-    		}
-		
-		    node* rootNode = g->nodes[rootNodeIdx];
-		    Enqueue(q, rootNode);
-	    	visited[rootNodeIdx] = 1;
-			
-	   		
-	   		if(returnNoRisk(rootNode) == 1)
-	   			printf("Infected student has not been in contact with another student for over 30 minutes.\n\n");
-	   		else{
-	   			
-	   			while(QueueEmpty(q) != 1) {
-	    		
-	    	    node* currentNode = Dequeue(q);
-	    	    
-	    	    //only put non-root nodes into the result
-			        if(currentNode != rootNode) {
-			            result[resultIdx] = currentNode;
-			            resultIdx++;
-			            
-			        }
-						
-					for(int i = 0; i < currentNode->edgeNum; i++) {
-			        	
-		        		adjNode = currentNode->edges[i];
-		    	        adjIdx = returnNodeIdxData(g, adjNode->data); 
-		            
-		        	    if(adjIdx != -1 && !visited[adjIdx] && currentNode->edgeWeights[i] > 30) {
-		    	            visited[adjIdx] = 1;
-		    	            Enqueue(q, adjNode);
-		    	       	}
-		    	    }	
-				}	
-			
-			
-	        	for(int i = 0; i < resultIdx; i++) {
-		    	    node* displayNode = result[i];
-		    	    printf("%d. ", i+1);
-		    	    printNodeName(displayNode);
-		    	    printf(":[");
-		    	    printNodeData(displayNode);
-		    	    printf("]");
-		    	    printf("\n");
-	   			}
-	    	}
-	    
-			printf("\n");
-	    
-    	
-  	
-	}
-    
-}
 
 void exportGraph(graph* g){
 	
 		int rootNodeIdx = 0;
+		int i;
 		
   		queue* q = CreateQueue(g->nodeNum);
     	node* result[g->nodeNum];
@@ -231,7 +157,7 @@ void exportGraph(graph* g){
 		int adjIdx;
 		    
 		    //Initialize array to be filled with 0
-		    for(int i = 0; i < g->nodeNum; i++) {
+		    for(i = 0; i < g->nodeNum; i++) {
 		    	visited[i] = 0;
     		}
 		
@@ -246,7 +172,7 @@ void exportGraph(graph* g){
 			    	result[resultIdx] = currentNode;
 			   	 	resultIdx++;
 			            	
-					for(int i = 0; i < currentNode->edgeNum; i++) {
+					for(i = 0; i < currentNode->edgeNum; i++) {
 			        	
 		        		adjNode = currentNode->edges[i];
 		    	        adjIdx = returnNodeIdxData(g, adjNode->data); 
@@ -259,7 +185,7 @@ void exportGraph(graph* g){
 				}	
 			
 			
-	        	for(int i = 0; i < resultIdx; i++) {
+	        	for(i = 0; i < resultIdx; i++) {
 		    	    node* displayNode = result[i];
 		    	    printf("%d. ", i+1);
 		    	    printNodeName(displayNode);
@@ -268,6 +194,8 @@ void exportGraph(graph* g){
 		    	    printf("]");
 		    	    printf("\n");
 	   			}
+	   			
+	   			
 	    
 			printf("\n");
 }
