@@ -1,10 +1,10 @@
 #include "BFSAlgo.c"
 
-void ImportNodes(graph** g) {
+graph* ImportNodes(graph* g) {
     FILE* file = fopen("GraphNodes.txt", "r");
     if (!file) {
         printf("Error opening GraphNodes.txt\n");
-        return;
+        return g;
     }
 
     string graphName, name, data;
@@ -20,26 +20,27 @@ void ImportNodes(graph** g) {
     // Create first node (initializes graph)
     fscanf(file, " %[^\n]", name);
     fscanf(file, " %[^\n]", data);
-    *g = createGraph(graphName, name, data);
+    g = createGraph(graphName, name, data);
 
     // Add remaining nodes
     for ( i = 1; i < nodeCount; i++) {
         fscanf(file, " %[^\n]", name);
     	fscanf(file, " %[^\n]", data);
-        addNode(*g, name, data);
+        addNode(g, name, data);
     }
 
     fclose(file);
     printf("Imported %d nodes from GraphNodes.txt\n", nodeCount);
+    
+    return g;
 }
 
-void ImportEdges(graph** g) {
-    if (!g || !*g) return;
+graph* ImportEdges(graph* g) {
 
     FILE* file = fopen("GraphEdges.txt", "r");
     if (!file) {
         printf("Error: GraphEdges.txt not found\n");
-        return;
+        return g;
     }
 
     string id1, id2;
@@ -52,16 +53,18 @@ void ImportEdges(graph** g) {
         fscanf(file, "%s", id1); //ID Number of Student 1
         fscanf(file, "%s", id2); //ID Number of Student 2
         fscanf(file, "%d", &weight); //Edge weight / Time of contact between them (in minutes)
-        int idx1 = returnNodeIdxData(*g, id1);
-        int idx2 = returnNodeIdxData(*g, id2);
+        int idx1 = returnNodeIdxData(g, id1);
+        int idx2 = returnNodeIdxData(g, id2);
         
         if (idx1 != -1 && idx2 != -1) {
-            addEdge((*g)->nodes[idx1], (*g)->nodes[idx2], weight);
+            addEdge(g->nodes[idx1], g->nodes[idx2], weight);
         }
     }
 
     fclose(file);
     printf("Imported %d edges from GraphEdges.txt\n", edgeCount);
+    
+    return g;
 }
 
 void ExportGraphNodes(graph* g) {

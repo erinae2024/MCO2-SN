@@ -119,7 +119,7 @@ void displayDetermine(int *page, graph* g){
 	
 }
 
-void displayImportExport(int *page, graph* g){
+graph* displayImportExport(int *page, graph* g, int* init){
 	
 	int choice;
 	string input;	
@@ -133,8 +133,9 @@ void displayImportExport(int *page, graph* g){
 	
 	if(choice == 1){
 		
-		ImportNodes(&g);
-		ImportEdges(&g);
+		g = ImportNodes(g);
+		g = ImportEdges(g);
+		*init = 1;
 		printf("\n[1] Back to Import/Export Graph Menu\n");
 		choice = getInput(1,1);
 		*page = 0;
@@ -150,6 +151,8 @@ void displayImportExport(int *page, graph* g){
 	}
 	else if(choice == 3)
 		*page = 0;
+	
+	return g;
 	
 }
 

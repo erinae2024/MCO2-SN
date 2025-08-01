@@ -240,7 +240,11 @@ int getEdgeIndex(node* node1, node* node2){
 	
 }
 
-void displayGraphAsAdjacencyList(graph* g){
+void displayGraphAsAdjacencyList(graph* g, int init){
+	
+	if(!init){
+		return;
+	}
 	
 	int done = 0;
 	int i, j;

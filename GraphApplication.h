@@ -45,7 +45,7 @@ int edgeExistData(node* node1, node* node2); //Checks if an edge exists given tw
 
 void deleteEdge(node* node1, node* node2);
 int getEdgeIndex(node* node1, node* node2);
-void displayGraphAsAdjacencyList(graph* g);
+void displayGraphAsAdjacencyList(graph* g, int init);
 void editNodeName(node* n, string newName);
 void editNodeData(node* n, string newData);
 
