@@ -135,7 +135,10 @@ graph* displayImportExport(int *page, graph* g, int* init){
 		
 		g = ImportNodes(g);
 		g = ImportEdges(g);
-		*init = 1;
+		
+		if(g != NULL)
+			*init = 1;
+			
 		printf("\n[1] Back to Import/Export Graph Menu\n");
 		choice = getInput(1,1);
 		*page = 0;

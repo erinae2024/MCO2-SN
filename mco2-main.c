@@ -7,7 +7,9 @@ int main(){
 	int page = 0;
 	
 	int graphInit = 0;
-	graph* mainGraph;
+	graph* mainGraph = NULL;
+	
+
 	
 	while(on){
 		

@@ -2,7 +2,7 @@
 
 graph* ImportNodes(graph* g) {
 	string filename;
-	printf("Enter a filename: ");
+	printf("Enter a filename to import graph and its nodes: ");
 	scanf("%s", filename);
     FILE* file = fopen(filename, "r");
     if (!file) {
@@ -40,7 +40,7 @@ graph* ImportNodes(graph* g) {
 
 graph* ImportEdges(graph* g) {
 	string filename;
-	printf("Enter a filename: ");
+	printf("Enter a filename to import edges present in graph: ");
 	scanf("%s", filename);
     FILE* file = fopen(filename, "r");
     if (!file) {
@@ -74,7 +74,7 @@ graph* ImportEdges(graph* g) {
 
 void ExportGraphNodes(graph* g) {
 	string filename;
-	printf("Enter a filename: ");
+	printf("Enter a filename to export graph and its nodes: ");
 	scanf("%s", filename);
     FILE* file = fopen(filename, "w");
     if (!file) {
@@ -114,7 +114,7 @@ int CountGraphEdges(graph* g) {
 
 void ExportGraphEdges(graph* g) {
 	string filename;
-	printf("Enter a filename: ");
+	printf("Enter a filename to export edges present in graph: ");
 	scanf("%s", filename);
     FILE* file = fopen(filename, "w");
     if (!file) {
