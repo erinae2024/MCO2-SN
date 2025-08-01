@@ -144,7 +144,7 @@ void printRiskStudent(graph* g, string key, int type) {
 }
 
 
-void exportGraph(graph* g){
+/*void exportGraph(graph* g){
 	
 		int rootNodeIdx = 0;
 		int i;
@@ -202,5 +202,111 @@ void exportGraph(graph* g){
 						if (!unvisitedExist) {
 						    done = 1;
 					}
-			}	
+			}
+}*/
+
+void ExportGraphNodes(graph* g) {
+    FILE* file = fopen("GraphNodes.txt", "w");
+    if (!file) {
+        printf("Error creating GraphNodes.txt!\n");
+        return;
+    }
+
+    // Export nodes in specified format
+    fprintf(file, "%s\n", g->name);          // Graph name
+    fprintf(file, "%d\n", g->nodeNum);      // Node count
+    
+    for (int i = 0; i < g->nodeNum; i++) {
+        fprintf(file, "%s\n", g->nodes[i]->name);  // Student name
+        fprintf(file, "%s\n", g->nodes[i]->data);  // Student ID
+    }
+
+    fclose(file);
+    printf("Node data exported to GraphNodes.txt\n");
+}
+
+
+
+// Helper function to count total unique edges
+int CountGraphEdges(graph* g) {
+    int edgeCount = 0;
+    int i;
+    for (i = 0; i < g->nodeNum; i++) {
+        for (int j = 0; j < g->nodes[i]->edgeNum; j++) {
+            // Only count edge if we haven't seen it before (student1 ID < student2 ID)
+            if (returnNodeIdxData(g, g->nodes[i]->edges[j]->data) > i) {
+                edgeCount++;
+            }
+        }
+    }
+    return edgeCount;
+}
+
+void ExportGraphEdges(graph* g) {
+    FILE* file = fopen("GraphEdges.txt", "w");
+    if (!file) {
+        printf("Error creating GraphEdges.txt!\n");
+        return;
+    }
+
+    int rootNodeIdx = 0;
+    int i;
+    int done = 0;
+    
+    queue* q = CreateQueue(g->nodeNum);
+    int visited[g->nodeNum];
+    node* adjNode;
+    int adjIdx;
+    
+    // Initialize visited array
+    for(i = 0; i < g->nodeNum; i++) {
+        visited[i] = 0;
+    }
+
+    // Write total edge count 
+    fprintf(file, "%d\n", CountGraphEdges(g));
+    
+    // BFS traversal to export edges
+    while(!done) {
+        node* rootNode = g->nodes[rootNodeIdx];
+        Enqueue(q, rootNode);
+        visited[rootNodeIdx] = 1;
+        
+        while(QueueEmpty(q) != 1) {
+            node* currentNode = Dequeue(q);
+            
+            for(i = 0; i < currentNode->edgeNum; i++) {
+                adjNode = currentNode->edges[i];
+                adjIdx = returnNodeIdxData(g, adjNode->data); 
+                
+                // Only export edge if we haven't seen it before (student1 ID < student2 ID)
+                if(adjIdx != -1 && adjIdx > rootNodeIdx) {
+                    fprintf(file, "%s\n", currentNode->data);  // Student 1 ID
+                    fprintf(file, "%s\n", adjNode->data);     // Student 2 ID
+                    fprintf(file, "%d\n", currentNode->edgeWeights[i]); // Weight
+                }
+                
+                if(adjIdx != -1 && !visited[adjIdx]) {
+                    visited[adjIdx] = 1;
+                    Enqueue(q, adjNode);
+                }
+            }
+        }
+        
+        // Check for unvisited nodes (disconnected graphs)
+        int unvisitedExist = 0;  
+        for(i = 0; i < g->nodeNum; i++) {
+            if(visited[i] == 0) {
+                rootNodeIdx = i;
+                unvisitedExist = 1;
+                i = g->nodeNum; // Exit loop
+            }
+        }
+        if (!unvisitedExist) {
+            done = 1;
+        }
+    }
+    
+    fclose(file);
+    printf("Edge data exported to GraphEdges.txt\n");
 }

@@ -38,8 +38,10 @@ int main(){
 	addEdge(mainGraph->nodes[10], mainGraph->nodes[6], 60);
 	addEdge(mainGraph->nodes[11], mainGraph->nodes[6], 60);
 	
-	exportGraph(mainGraph);
-	
+	ExportGraphNodes(mainGraph);
+	ExportGraphEdges(mainGraph);
+	ImportNodes(mainGraph);
+	ImportEdges(mainGraph);
 	
 	/*while(on){
 		
