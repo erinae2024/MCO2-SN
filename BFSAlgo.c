@@ -172,8 +172,8 @@ void exportGraph(graph* g){
 		    		
 		    	    	node* currentNode = Dequeue(q);
 		    	    
-				    	printNodeData(currentNode);
-				    	printf("\n");
+				    	printNodeData(currentNode); //change this to print to file
+				    	printf("\n"); //change this to print to file
 				            	
 						for(i = 0; i < currentNode->edgeNum; i++) {
 				        	
@@ -184,9 +184,9 @@ void exportGraph(graph* g){
 			    	            visited[adjIdx] = 1;
 			    	            Enqueue(q, adjNode);
 			    	            
-			    	            printNodeData(adjNode);
-			    	            printf("\n");
-			    	            printf("%d\n", currentNode->edgeWeights[i]);
+			    	            printNodeData(adjNode); //change this to print to file
+			    	            printf("\n"); //change this to print to file
+			    	            printf("%d\n", currentNode->edgeWeights[i]); //change this to print to file
 			    	       	}
 			    	    }	
 					}	
