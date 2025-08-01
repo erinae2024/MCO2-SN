@@ -2,7 +2,7 @@
 
 int returnNoRisk(node* n);
 void printAdjacentNodes(node* n); //to be used to show students who have been in contact with specified infected student
-void printRiskStudentgraph* g, string key, int type);
+void printRiskStudent(graph* g, string key, int type);
 
 
 int returnNoRisk(node* n){
@@ -53,10 +53,11 @@ void printAdjacentNodes(node* n){
 		
 }
 
-void printRiskStudentgraph(graph* g, string key, int type) {
+void printRiskStudent(graph* g, string key, int type) {
 	
 	int studentFound = 1;
     int rootNodeIdx;
+    int i;
     
     if(type == 1)
     	rootNodeIdx = returnNodeIdxName(g, key);
@@ -87,7 +88,7 @@ void printRiskStudentgraph(graph* g, string key, int type) {
 		int adjIdx;
 		    
 		    //Initialize array to be filled with 0
-		for(int i = 0; i < g->nodeNum; i++) {
+		for(i = 0; i < g->nodeNum; i++) {
 	    	visited[i] = 0;
     	}
 		
@@ -111,73 +112,12 @@ void printRiskStudentgraph(graph* g, string key, int type) {
 			            
 			        }
 						
-					for(int i = 0; i < currentNode->edgeNum; i++) {
+					for(i = 0; i < currentNode->edgeNum; i++) {
 			        	
 		        		adjNode = currentNode->edges[i];
 		    	        adjIdx = returnNodeIdxData(g, adjNode->data);  
 		            
 		        	    if(adjIdx != -1 && !visited[adjIdx] && currentNode->edgeWeights[i] > 30) {
-		    	            visited[adjIdx] = 1;
-		    	            Enqueue(q, adjNode);
-		    	       	}
-		    	    }	
-				}	
-			
-			
-	        	for(int i = 0; i < resultIdx; i++) {
-		    	    node* displayNode = result[i];
-		    	    printf("%d. ", i+1);
-		    	    printNodeName(displayNode);
-		    	    printf(":[");
-		    	    printNodeData(displayNode);
-		    	    printf("]");
-		    	    printf("\n");
-	   			}
-	    	}
-	    
-			printf("\n");
-	    
-    
-  	
-	}
-    
-}
-
-
-void exportGraph(graph* g){
-	
-		int rootNodeIdx = 0;
-		int i;
-		
-  		queue* q = CreateQueue(g->nodeNum);
-    	node* result[g->nodeNum];
-		int resultIdx = 0;
-		int visited[g->nodeNum];
-		node* adjNode;
-		int adjIdx;
-		    
-		    //Initialize array to be filled with 0
-		    for(i = 0; i < g->nodeNum; i++) {
-		    	visited[i] = 0;
-    		}
-		
-		    node* rootNode = g->nodes[rootNodeIdx];
-		    Enqueue(q, rootNode);
-	    	visited[rootNodeIdx] = 1;
-	   			
-	   			while(QueueEmpty(q) != 1) {
-	    		
-	    	    	node* currentNode = Dequeue(q);
-	    	    
-			    	result[resultIdx] = currentNode;
-			   	 	resultIdx++;
-			            	
-					for(i = 0; i < currentNode->edgeNum; i++) {
-			        	
-		        		adjNode = currentNode->edges[i];
-		    	        adjIdx = returnNodeIdxData(g, adjNode->data); 
-		            
-		        	    if(adjIdx != -1 && !visited[adjIdx]) {
 		    	            visited[adjIdx] = 1;
 		    	            Enqueue(q, adjNode);
 		    	       	}
@@ -194,8 +134,73 @@ void exportGraph(graph* g){
 		    	    printf("]");
 		    	    printf("\n");
 	   			}
-	   			
-	   			
+	    	}
 	    
 			printf("\n");
+    
+  	
+	}
+    
+}
+
+
+void exportGraph(graph* g){
+	
+		int rootNodeIdx = 0;
+		int i;
+		int done = 0;
+		
+  		queue* q = CreateQueue(g->nodeNum);
+    	node* result[g->nodeNum];
+		int resultIdx = 0;
+		int visited[g->nodeNum];
+		node* adjNode;
+		int adjIdx;
+		
+		    
+		    //Initialize array to be filled with 0
+		    for(i = 0; i < g->nodeNum; i++) {
+		    	visited[i] = 0;
+    		}
+			
+			while(!done){
+				node* rootNode = g->nodes[rootNodeIdx];
+			    Enqueue(q, rootNode);
+		    	visited[rootNodeIdx] = 1;
+		   			
+		   			while(QueueEmpty(q) != 1) {
+		    		
+		    	    	node* currentNode = Dequeue(q);
+		    	    
+				    	printNodeData(currentNode);
+				    	printf("\n");
+				            	
+						for(i = 0; i < currentNode->edgeNum; i++) {
+				        	
+			        		adjNode = currentNode->edges[i];
+			    	        adjIdx = returnNodeIdxData(g, adjNode->data); 
+			            
+			        	    if(adjIdx != -1 && !visited[adjIdx]) {
+			    	            visited[adjIdx] = 1;
+			    	            Enqueue(q, adjNode);
+			    	            
+			    	            printNodeData(adjNode);
+			    	            printf("\n");
+			    	            printf("%d\n", currentNode->edgeWeights[i]);
+			    	       	}
+			    	    }	
+					}	
+				
+					int unvisitedExist = 0;  
+					for(i = 0; i < g->nodeNum; i++) {
+					    if(visited[i] == 0) {
+					        rootNodeIdx = i;
+					        unvisitedExist = 1;
+					        i == g->nodeNum;
+					    }
+					}
+						if (!unvisitedExist) {
+						    done = 1;
+					}
+			}	
 }

@@ -7,28 +7,28 @@ int main(){
 	int page = 0;
 	
 	graph* mainGraph = createGraph("DLSU Students", "Student Name", "ID Number");
-	addNode(mainGraph, "ERIN", "121");
+	addNode(mainGraph, "ERIN", "124001");
 	addEdge(mainGraph->nodes[0], mainGraph->nodes[1], 120);
 	
-	addNode(mainGraph, "De Leon, Alaine A.", "123");
+	addNode(mainGraph, "De Leon, Alaine A.", "124002");
 	addEdge(mainGraph->nodes[0], mainGraph->nodes[2], 50);
 	addEdge(mainGraph->nodes[1], mainGraph->nodes[2], 88);
 	
-	addNode(mainGraph, "Sans", "001");
-	addNode(mainGraph, "Papyrus", "002");
+	addNode(mainGraph, "Sans", "124003");
+	addNode(mainGraph, "Papyrus", "124004");
 	addEdge(mainGraph->nodes[2], mainGraph->nodes[3], 999);
 	addEdge(mainGraph->nodes[2], mainGraph->nodes[4], 20);
 	//displayGraphAsAdjacencyList(mainGraph);
 	
 	editNodeName(mainGraph->nodes[3], "Ness");
-	addNode(mainGraph, "Bang Chan", "197");
+	addNode(mainGraph, "Bang Chan", "124005");
 	
-	addNode(mainGraph, "Lee Felix", "921");
-	addNode(mainGraph, "Han Jisung", "008");
-	addNode(mainGraph, "Seo Changbin", "009");
-	addNode(mainGraph, "Lee Know", "010");
-	addNode(mainGraph, "Kim Seungmin", "011");
-	addNode(mainGraph, "Yang Jeongin", "012");
+	addNode(mainGraph, "Lee Felix", "124006");
+	addNode(mainGraph, "Han Jisung", "124007");
+	addNode(mainGraph, "Seo Changbin", "124008");
+	addNode(mainGraph, "Lee Know", "124009");
+	addNode(mainGraph, "Kim Seungmin", "124010");
+	addNode(mainGraph, "Yang Jeongin", "124011");
 //	addNode(mainGraph, "Ness", "010"); //LIMITATION: IF THERE ARE TWO NODES WITH SAME NAME, BFSALGO WILL DO THE FIRST INSTANCE OF THE NAME
 	addEdge(mainGraph->nodes[3], mainGraph->nodes[5], 60);
 
@@ -38,10 +38,10 @@ int main(){
 	addEdge(mainGraph->nodes[10], mainGraph->nodes[6], 60);
 	addEdge(mainGraph->nodes[11], mainGraph->nodes[6], 60);
 	
-//	exportGraph(mainGraph);
+	exportGraph(mainGraph);
 	
 	
-	while(on){
+	/*while(on){
 		
 		system("cls");
 		
@@ -57,7 +57,7 @@ int main(){
 			case 5: on = confirmExit(&page); break;
 			default: displayMenu(&page); break;
 			}	
-	}
+	}*/
 }
 
 /*todo: 

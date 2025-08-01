@@ -90,7 +90,7 @@ void displayDetermine(int *page, graph* g){
 		
 		printf("Enter the name of student: ");
 		scanf(" %[^\n]", input);
-		printRiskStudentName(g, input, type);
+		printRiskStudent(g, input, type);
 		
 		printf("\n[1] Back to Main Menu\n");
 		printf("Please enter the number of your chosen option: ");
@@ -103,7 +103,7 @@ void displayDetermine(int *page, graph* g){
 		
 		printf("Enter the ID number of student: ");
 		scanf("%s", input);
-		printRiskStudentName(g, input, type);
+		printRiskStudent(g, input, type);
 		
 		printf("\n[1] Back to Main Menu\n");
 		printf("Please enter the number of your chosen option: ");
