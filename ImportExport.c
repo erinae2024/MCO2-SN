@@ -1,9 +1,12 @@
 #include "BFSAlgo.c"
 
 graph* ImportNodes(graph* g) {
-    FILE* file = fopen("GraphNodes.txt", "r");
+	string filename;
+	printf("Enter a filename: ");
+	scanf("%s", filename);
+    FILE* file = fopen(filename, "r");
     if (!file) {
-        printf("Error opening GraphNodes.txt\n");
+        printf("Error opening %s\n", filename);
         return g;
     }
 
@@ -30,16 +33,18 @@ graph* ImportNodes(graph* g) {
     }
 
     fclose(file);
-    printf("Imported %d nodes from GraphNodes.txt\n", nodeCount);
+    printf("Imported %d nodes from %s\n", nodeCount, filename);
     
     return g;
 }
 
 graph* ImportEdges(graph* g) {
-
-    FILE* file = fopen("GraphEdges.txt", "r");
+	string filename;
+	printf("Enter a filename: ");
+	scanf("%s", filename);
+    FILE* file = fopen(filename, "r");
     if (!file) {
-        printf("Error: GraphEdges.txt not found\n");
+        printf("Error: %s not found\n", filename);
         return g;
     }
 
@@ -62,15 +67,18 @@ graph* ImportEdges(graph* g) {
     }
 
     fclose(file);
-    printf("Imported %d edges from GraphEdges.txt\n", edgeCount);
+    printf("Imported %d edges from %s\n", edgeCount, filename);
     
     return g;
 }
 
 void ExportGraphNodes(graph* g) {
-    FILE* file = fopen("GraphNodes.txt", "w");
+	string filename;
+	printf("Enter a filename: ");
+	scanf("%s", filename);
+    FILE* file = fopen(filename, "w");
     if (!file) {
-        printf("Error creating GraphNodes.txt!\n");
+        printf("Error creating %s\n", filename);
         return;
     }
 
@@ -84,7 +92,7 @@ void ExportGraphNodes(graph* g) {
     }
 
     fclose(file);
-    printf("Node data exported to GraphNodes.txt\n");
+    printf("Node data exported to %s\n", filename);
 }
 
 
@@ -105,9 +113,12 @@ int CountGraphEdges(graph* g) {
 }
 
 void ExportGraphEdges(graph* g) {
-    FILE* file = fopen("GraphEdges.txt", "w");
+	string filename;
+	printf("Enter a filename: ");
+	scanf("%s", filename);
+    FILE* file = fopen(filename, "w");
     if (!file) {
-        printf("Error creating GraphEdges.txt!\n");
+        printf("Error creating %s\n", filename);
         return;
     }
 
@@ -170,5 +181,5 @@ void ExportGraphEdges(graph* g) {
     }
     
     fclose(file);
-    printf("Edge data exported to GraphEdges.txt\n");
+    printf("Edge data exported to %s\n", filename);
 }
