@@ -8,14 +8,14 @@ int main(){
 	
 	graph* mainGraph;
 	
-	//ImportNodes(&mainGraph);
-	//ImportEdges(&mainGraph);
+	ImportNodes(&mainGraph);
+	ImportEdges(&mainGraph);
 	
 	while(on){
 		
 		system("cls");
 
-			//displayGraphAsAdjacencyList(mainGraph);
+			displayGraphAsAdjacencyList(mainGraph);
 			
 			switch(page){
 			

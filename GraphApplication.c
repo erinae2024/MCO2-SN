@@ -22,8 +22,9 @@ int addNode(graph* g, string name, string data){
 	}
 	else{
 		success = 0;
-		printf("\nError! Student with this ID number already exists.");
 	}
+	
+	return success;
 	
 }
 

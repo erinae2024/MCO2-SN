@@ -194,6 +194,7 @@ void displayNodeFunc(int* page, graph* g){ //3
 						subpage = 0;
 					}
 					else{
+						printf("\nError! Student with this ID number already exists.\n");
 						printf("\n\n[1] Back to Node Menu\n");
 						subpage = getInput(1,1)-1;
 					}
